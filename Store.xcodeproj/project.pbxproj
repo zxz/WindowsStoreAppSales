@@ -17,7 +17,6 @@
 		9F9D77C216C35A8D001F9FD0 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D77C116C35A8D001F9FD0 /* Default@2x.png */; };
 		9F9D77C416C35A8D001F9FD0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D77C316C35A8D001F9FD0 /* Default-568h@2x.png */; };
 		9F9D77E016C35F64001F9FD0 /* SalesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D77DF16C35F64001F9FD0 /* SalesViewController.m */; };
-		9F9D77E216C36084001F9FD0 /* 2-4-2013_2-4-2013.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D77E116C36084001F9FD0 /* 2-4-2013_2-4-2013.csv */; };
 		9F9D77E516C361CB001F9FD0 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D77E416C361CB001F9FD0 /* Product.m */; };
 		9F9D77E816C3671A001F9FD0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F9D77E716C3671A001F9FD0 /* CoreData.framework */; };
 		9F9D77EB16C38BE3001F9FD0 /* Sale.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D77E916C38BE3001F9FD0 /* Sale.xcdatamodeld */; };
@@ -41,7 +40,6 @@
 		9F9D77C316C35A8D001F9FD0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		9F9D77DE16C35F64001F9FD0 /* SalesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalesViewController.h; sourceTree = "<group>"; };
 		9F9D77DF16C35F64001F9FD0 /* SalesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesViewController.m; sourceTree = "<group>"; };
-		9F9D77E116C36084001F9FD0 /* 2-4-2013_2-4-2013.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-4-2013_2-4-2013.csv"; sourceTree = "<group>"; };
 		9F9D77E316C361CB001F9FD0 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Product.h; path = Store/Product.h; sourceTree = "<group>"; };
 		9F9D77E416C361CB001F9FD0 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Product.m; path = Store/Product.m; sourceTree = "<group>"; };
 		9F9D77E716C3671A001F9FD0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -105,7 +103,6 @@
 		9F9D77B316C35A8D001F9FD0 /* Store */ = {
 			isa = PBXGroup;
 			children = (
-				9F9D77E116C36084001F9FD0 /* 2-4-2013_2-4-2013.csv */,
 				9F9D77BC16C35A8D001F9FD0 /* AppDelegate.h */,
 				9F9D77BD16C35A8D001F9FD0 /* AppDelegate.m */,
 				9F9D77DE16C35F64001F9FD0 /* SalesViewController.h */,
@@ -184,7 +181,6 @@
 				9F9D77C016C35A8D001F9FD0 /* Default.png in Resources */,
 				9F9D77C216C35A8D001F9FD0 /* Default@2x.png in Resources */,
 				9F9D77C416C35A8D001F9FD0 /* Default-568h@2x.png in Resources */,
-				9F9D77E216C36084001F9FD0 /* 2-4-2013_2-4-2013.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +312,7 @@
 				9F9D77DD16C35A8D001F9FD0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

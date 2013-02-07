@@ -10,7 +10,7 @@
 
 @interface RecordManager : NSObject
 {
-    
+    NSManagedObjectContext *moc;
 }
 +(RecordManager *)sharedInstance;
 -(void)importRecords;

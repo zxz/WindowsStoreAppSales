@@ -87,7 +87,9 @@
     if (cell==nil){
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    Record *record = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
+    cell.textLabel.text=[NSString stringWithFormat:@"%@  %@ %@",record.appName,record.price,record.country];
     // Configure the cell...
     
     return cell;

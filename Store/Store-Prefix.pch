@@ -12,3 +12,16 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 #endif
+
+#import <CoreData/CoreData.h>
+
+
+#define kUserName @"siren9933@hotmail.com"
+#define kPassWord @"zxz3432"
+
+#define kMyComputer @"My Computer+"
+#define kiTube @"iTubeDownloader"
+#define kYoutubeMusic @"Youtube Music"
+#define kMyYoutubeDownloader @"My Youtube Downloader"
+#define kYoutubeEdu @"Youtube Eudcation"
+#define kPhotoLocker @"Photo Locker"

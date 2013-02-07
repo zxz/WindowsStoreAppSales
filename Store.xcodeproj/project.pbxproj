@@ -16,14 +16,13 @@
 		9F9D77C016C35A8D001F9FD0 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D77BF16C35A8D001F9FD0 /* Default.png */; };
 		9F9D77C216C35A8D001F9FD0 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D77C116C35A8D001F9FD0 /* Default@2x.png */; };
 		9F9D77C416C35A8D001F9FD0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D77C316C35A8D001F9FD0 /* Default-568h@2x.png */; };
-		9F9D77C716C35A8D001F9FD0 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D77C616C35A8D001F9FD0 /* FirstViewController.m */; };
-		9F9D77C916C35A8D001F9FD0 /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D77C816C35A8D001F9FD0 /* first.png */; };
-		9F9D77CB16C35A8D001F9FD0 /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D77CA16C35A8D001F9FD0 /* first@2x.png */; };
-		9F9D77CE16C35A8D001F9FD0 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D77CD16C35A8D001F9FD0 /* SecondViewController.m */; };
-		9F9D77D016C35A8D001F9FD0 /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D77CF16C35A8D001F9FD0 /* second.png */; };
-		9F9D77D216C35A8D001F9FD0 /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D77D116C35A8D001F9FD0 /* second@2x.png */; };
-		9F9D77D516C35A8D001F9FD0 /* FirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D77D316C35A8D001F9FD0 /* FirstViewController.xib */; };
-		9F9D77D816C35A8D001F9FD0 /* SecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D77D616C35A8D001F9FD0 /* SecondViewController.xib */; };
+		9F9D77E016C35F64001F9FD0 /* SalesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D77DF16C35F64001F9FD0 /* SalesViewController.m */; };
+		9F9D77E216C36084001F9FD0 /* 2-4-2013_2-4-2013.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D77E116C36084001F9FD0 /* 2-4-2013_2-4-2013.csv */; };
+		9F9D77E516C361CB001F9FD0 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D77E416C361CB001F9FD0 /* Product.m */; };
+		9F9D77E816C3671A001F9FD0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F9D77E716C3671A001F9FD0 /* CoreData.framework */; };
+		9F9D77EB16C38BE3001F9FD0 /* Sale.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D77E916C38BE3001F9FD0 /* Sale.xcdatamodeld */; };
+		9F9D77F116C38E4E001F9FD0 /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D77F016C38E4E001F9FD0 /* Record.m */; };
+		9F9D77F716C3A52F001F9FD0 /* RecordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D77F616C3A52F001F9FD0 /* RecordManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,16 +39,17 @@
 		9F9D77BF16C35A8D001F9FD0 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		9F9D77C116C35A8D001F9FD0 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		9F9D77C316C35A8D001F9FD0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		9F9D77C516C35A8D001F9FD0 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		9F9D77C616C35A8D001F9FD0 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		9F9D77C816C35A8D001F9FD0 /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
-		9F9D77CA16C35A8D001F9FD0 /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
-		9F9D77CC16C35A8D001F9FD0 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		9F9D77CD16C35A8D001F9FD0 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
-		9F9D77CF16C35A8D001F9FD0 /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
-		9F9D77D116C35A8D001F9FD0 /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
-		9F9D77D416C35A8D001F9FD0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FirstViewController.xib; sourceTree = "<group>"; };
-		9F9D77D716C35A8D001F9FD0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SecondViewController.xib; sourceTree = "<group>"; };
+		9F9D77DE16C35F64001F9FD0 /* SalesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalesViewController.h; sourceTree = "<group>"; };
+		9F9D77DF16C35F64001F9FD0 /* SalesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesViewController.m; sourceTree = "<group>"; };
+		9F9D77E116C36084001F9FD0 /* 2-4-2013_2-4-2013.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-4-2013_2-4-2013.csv"; sourceTree = "<group>"; };
+		9F9D77E316C361CB001F9FD0 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Product.h; path = Store/Product.h; sourceTree = "<group>"; };
+		9F9D77E416C361CB001F9FD0 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Product.m; path = Store/Product.m; sourceTree = "<group>"; };
+		9F9D77E716C3671A001F9FD0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		9F9D77EA16C38BE3001F9FD0 /* Sale.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Sale.xcdatamodel; sourceTree = "<group>"; };
+		9F9D77EF16C38E4E001F9FD0 /* Record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Record.h; path = Store/Record.h; sourceTree = "<group>"; };
+		9F9D77F016C38E4E001F9FD0 /* Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Record.m; path = Store/Record.m; sourceTree = "<group>"; };
+		9F9D77F516C3A52F001F9FD0 /* RecordManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecordManager.h; path = Store/RecordManager.h; sourceTree = "<group>"; };
+		9F9D77F616C3A52F001F9FD0 /* RecordManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecordManager.m; path = Store/RecordManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F9D77E816C3671A001F9FD0 /* CoreData.framework in Frameworks */,
 				9F9D77AE16C35A8D001F9FD0 /* UIKit.framework in Frameworks */,
 				9F9D77B016C35A8D001F9FD0 /* Foundation.framework in Frameworks */,
 				9F9D77B216C35A8D001F9FD0 /* CoreGraphics.framework in Frameworks */,
@@ -69,6 +70,13 @@
 		9F9D77A116C35A8D001F9FD0 = {
 			isa = PBXGroup;
 			children = (
+				9F9D77F516C3A52F001F9FD0 /* RecordManager.h */,
+				9F9D77F616C3A52F001F9FD0 /* RecordManager.m */,
+				9F9D77E916C38BE3001F9FD0 /* Sale.xcdatamodeld */,
+				9F9D77EF16C38E4E001F9FD0 /* Record.h */,
+				9F9D77F016C38E4E001F9FD0 /* Record.m */,
+				9F9D77E316C361CB001F9FD0 /* Product.h */,
+				9F9D77E416C361CB001F9FD0 /* Product.m */,
 				9F9D77B316C35A8D001F9FD0 /* Store */,
 				9F9D77AC16C35A8D001F9FD0 /* Frameworks */,
 				9F9D77AB16C35A8D001F9FD0 /* Products */,
@@ -86,6 +94,7 @@
 		9F9D77AC16C35A8D001F9FD0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9F9D77E716C3671A001F9FD0 /* CoreData.framework */,
 				9F9D77AD16C35A8D001F9FD0 /* UIKit.framework */,
 				9F9D77AF16C35A8D001F9FD0 /* Foundation.framework */,
 				9F9D77B116C35A8D001F9FD0 /* CoreGraphics.framework */,
@@ -96,18 +105,11 @@
 		9F9D77B316C35A8D001F9FD0 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				9F9D77E116C36084001F9FD0 /* 2-4-2013_2-4-2013.csv */,
 				9F9D77BC16C35A8D001F9FD0 /* AppDelegate.h */,
 				9F9D77BD16C35A8D001F9FD0 /* AppDelegate.m */,
-				9F9D77C516C35A8D001F9FD0 /* FirstViewController.h */,
-				9F9D77C616C35A8D001F9FD0 /* FirstViewController.m */,
-				9F9D77C816C35A8D001F9FD0 /* first.png */,
-				9F9D77CA16C35A8D001F9FD0 /* first@2x.png */,
-				9F9D77CC16C35A8D001F9FD0 /* SecondViewController.h */,
-				9F9D77CD16C35A8D001F9FD0 /* SecondViewController.m */,
-				9F9D77CF16C35A8D001F9FD0 /* second.png */,
-				9F9D77D116C35A8D001F9FD0 /* second@2x.png */,
-				9F9D77D316C35A8D001F9FD0 /* FirstViewController.xib */,
-				9F9D77D616C35A8D001F9FD0 /* SecondViewController.xib */,
+				9F9D77DE16C35F64001F9FD0 /* SalesViewController.h */,
+				9F9D77DF16C35F64001F9FD0 /* SalesViewController.m */,
 				9F9D77B416C35A8D001F9FD0 /* Supporting Files */,
 			);
 			path = Store;
@@ -182,12 +184,7 @@
 				9F9D77C016C35A8D001F9FD0 /* Default.png in Resources */,
 				9F9D77C216C35A8D001F9FD0 /* Default@2x.png in Resources */,
 				9F9D77C416C35A8D001F9FD0 /* Default-568h@2x.png in Resources */,
-				9F9D77C916C35A8D001F9FD0 /* first.png in Resources */,
-				9F9D77CB16C35A8D001F9FD0 /* first@2x.png in Resources */,
-				9F9D77D016C35A8D001F9FD0 /* second.png in Resources */,
-				9F9D77D216C35A8D001F9FD0 /* second@2x.png in Resources */,
-				9F9D77D516C35A8D001F9FD0 /* FirstViewController.xib in Resources */,
-				9F9D77D816C35A8D001F9FD0 /* SecondViewController.xib in Resources */,
+				9F9D77E216C36084001F9FD0 /* 2-4-2013_2-4-2013.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,8 +197,11 @@
 			files = (
 				9F9D77BA16C35A8D001F9FD0 /* main.m in Sources */,
 				9F9D77BE16C35A8D001F9FD0 /* AppDelegate.m in Sources */,
-				9F9D77C716C35A8D001F9FD0 /* FirstViewController.m in Sources */,
-				9F9D77CE16C35A8D001F9FD0 /* SecondViewController.m in Sources */,
+				9F9D77E016C35F64001F9FD0 /* SalesViewController.m in Sources */,
+				9F9D77E516C361CB001F9FD0 /* Product.m in Sources */,
+				9F9D77EB16C38BE3001F9FD0 /* Sale.xcdatamodeld in Sources */,
+				9F9D77F116C38E4E001F9FD0 /* Record.m in Sources */,
+				9F9D77F716C3A52F001F9FD0 /* RecordManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,22 +214,6 @@
 				9F9D77B716C35A8D001F9FD0 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		9F9D77D316C35A8D001F9FD0 /* FirstViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9F9D77D416C35A8D001F9FD0 /* en */,
-			);
-			name = FirstViewController.xib;
-			sourceTree = "<group>";
-		};
-		9F9D77D616C35A8D001F9FD0 /* SecondViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9F9D77D716C35A8D001F9FD0 /* en */,
-			);
-			name = SecondViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -334,6 +318,19 @@
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9F9D77E916C38BE3001F9FD0 /* Sale.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9F9D77EA16C38BE3001F9FD0 /* Sale.xcdatamodel */,
+			);
+			currentVersion = 9F9D77EA16C38BE3001F9FD0 /* Sale.xcdatamodel */;
+			path = Sale.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9F9D77A216C35A8D001F9FD0 /* Project object */;
 }

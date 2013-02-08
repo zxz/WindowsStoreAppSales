@@ -14,7 +14,7 @@
 #endif
 
 #import <CoreData/CoreData.h>
-
+#import "CoreData+MagicalRecord.h"
 
 #define kUserName @"siren9933@hotmail.com"
 #define kPassWord @"zxz3432"

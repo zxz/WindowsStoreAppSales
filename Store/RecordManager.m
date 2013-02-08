@@ -18,11 +18,12 @@
 }
 -(void)importRecords{
     
-    moc = [[NSManagedObjectContext alloc]init] ;
-	[moc setPersistentStoreCoordinator:self.psc];
-	[moc setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+//    moc = [[NSManagedObjectContext alloc]init] ;
+//	[moc setPersistentStoreCoordinator:self.psc];
+//	[moc setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
 
    NSString * docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+//    NSLog(docPath);
 	NSFileManager *fm = [[NSFileManager alloc] init] ;
 	NSArray *fileNames = [fm contentsOfDirectoryAtPath:docPath error:NULL];
 //	NSString *filePath=[[NSBundle mainBundle]pathForResource:@"1" ofType:@"csv"];
@@ -40,7 +41,7 @@
 
     }
     NSError *saveError = nil;
-    [moc save:&saveError];
+//    [moc save:&saveError];
     if (saveError) {
         NSLog(@"Could not save context: %@", saveError);
     }
@@ -49,17 +50,20 @@
 
 -(void)importFile:(NSString *)filePath{
     NSString *fileContent=[[NSString alloc]initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    fileContent=[fileContent stringByReplacingOccurrencesOfString:@"\"" withString:@""];
     NSArray *rows=[fileContent componentsSeparatedByString:@"\n"];
-    
+
     if ([rows count]<2) {
         return ;
     }
-    NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
-    [f setNumberStyle:NSNumberFormatterCurrencyStyle];
+
+    NSManagedObjectContext *localContext    = [NSManagedObjectContext MR_contextForCurrentThread];
 
     for (int i=1; i<[rows count]-1;i++) {
       NSArray *details= [rows[i] componentsSeparatedByString:@","];
-        Record *newRecord=[NSEntityDescription insertNewObjectForEntityForName:@"Record" inManagedObjectContext:moc];
+//        Record *newRecord=[NSEntityDescription insertNewObjectForEntityForName:@"Record" inManagedObjectContext:moc];
+        Record *newRecord       = [Record MR_createInContext:localContext];
+
         newRecord.date=[self dateFromReportDateString:details[0]];
         
         newRecord.appName=details[1];
@@ -67,11 +71,11 @@
         newRecord.offer=details[3];
         newRecord.country=details[4];
         newRecord.currency=details[5];
-        NSNumber * myNumber = [f numberFromString:details[6]];
-        newRecord.price=myNumber;
-        newRecord.storeFee=[f numberFromString:details[7]];
-        newRecord.proceedSale=[f numberFromString:details[8]];
+        newRecord.price=[NSNumber numberWithFloat:[details[6] floatValue]];;
+        newRecord.storeFee=[NSNumber numberWithFloat:[details[7] floatValue]];
+        newRecord.proceedSale=[NSNumber numberWithDouble:[details[8] doubleValue]];
         newRecord.proceedLocalSale=[NSNumber numberWithInt:0];//this is empty
+        
         if ([details[10] length]==2) {
             newRecord.isSettled=[NSNumber numberWithBool:NO];
         }else{
@@ -80,7 +84,8 @@
         newRecord.paymentDate=nil;//this is empty
 
     }
-    
+    [localContext MR_save];
+
 }
 
 -(NSDate *)dateFromReportDateString:(NSString *)dateString

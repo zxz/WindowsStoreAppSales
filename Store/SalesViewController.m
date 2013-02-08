@@ -29,33 +29,65 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSError *error = nil;
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-    if (![[self fetchedResultsController] performFetch:&error]) {
-		/*
-		 Replace this implementation with code to handle the error appropriately.
-		 
-		 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-		 */
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		return;
-	}
-//    NSError *error;
-    NSManagedObjectContext *addingManagedObjectContext = [self managedObjectContext];
-    if (![addingManagedObjectContext save:&error]) {
-        /*
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-         */
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        return;
-    }
+//    [self reloadData];
+    
+//    [Record MR_truncateAll];
+//    [self deleteAll];
+    [self reloadData];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"country==%@ && appName==%@", @"US",@"Photo Locker"];
+        
+  //  int totalFat = [[Record MR_aggregateOperation:@"count:" onAttribute:@"country" withPredicate:predicate] intValue];
+    NSNumber *count = [Record MR_numberOfEntities];
+   
+    NSNumber *count1 = [Record MR_numberOfEntitiesWithPredicate:predicate];
+
+//NSNumber *count = [Record MR_countOfEntities];
+    self.title= [NSString stringWithFormat:@"%@", count] ;
+    
+}
+-(void)reloadData
+{
+//    NSError *error = nil;
+//
+//    if (![[self fetchedResultsController] performFetch:&error]) {
+//		/*
+//		 Replace this implementation with code to handle the error appropriately.
+//		 
+//		 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
+//		 */
+//		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//		return;
+//	}
+//    //    NSError *error;
+//    NSManagedObjectContext *addingManagedObjectContext = [self managedObjectContext];
+//    if (![addingManagedObjectContext save:&error]) {
+//        /*
+//         Replace this implementation with code to handle the error appropriately.
+//         
+//         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+//         */
+//        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//        return;
+//    }
+    
+//    self.fetchedResultsController = [Record MR_fetchAllSortedBy:@"country"
+//                      ascending:YES
+//                  withPredicate:nil
+//                        groupBy:@"appName"
+//                       delegate:self
+//                      inContext:[NSManagedObjectContext MR_contextForCurrentThread]];
+
+    
+    self.fetchedResultsController=[Record MR_fetchAllGroupedBy:@"appName" withPredicate:nil sortedBy:@"appName,country" ascending:NO delegate:self inContext:[NSManagedObjectContext MR_contextForCurrentThread]];
+
 [self.tableView reloadData];
 
 }
 -(void)refresh:(id)sender{
     [[RecordManager sharedInstance]importRecords];
+    [self reloadData];
+
 }
 - (void)didReceiveMemoryWarning
 {
@@ -64,7 +96,14 @@
 }
 
 #pragma mark - Table view data source
+- (NSString *)tableView:(UITableView *)table titleForHeaderInSection:(NSInteger)section {
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
+        return [NSString stringWithFormat:NSLocalizedString(@"%@  %d sale",nil), [sectionInfo name], [sectionInfo numberOfObjects]];
+}
 
+-(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 33;
+}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 //    NSLog(NSString *format, ...)
@@ -74,7 +113,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    
     return [sectionInfo numberOfObjects];
 }
 
@@ -86,12 +124,11 @@
     cell=[tableView dequeueReusableHeaderFooterViewWithIdentifier:CellIdentifier];
     if (cell==nil){
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.textLabel.numberOfLines=0;
     }
     Record *record = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
     cell.textLabel.text=[NSString stringWithFormat:@"%@  %@ %@",record.appName,record.price,record.country];
-    // Configure the cell...
-    
     return cell;
 }
 
@@ -133,47 +170,61 @@
     return YES;
 }
 */
+//-(void)deleteAll{
+//    NSError *error;
+//    fetchedResultsController.delegate = nil;               // turn off delegate callbacks
+//    for (Record *message in [fetchedResultsController fetchedObjects]) {
+//        [managedObjectContext deleteObject:message];
+//    }
+//    if (![managedObjectContext save:&error]) {
+//        // TODO: Handle the error appropriately.
+//        NSLog(@"Delete message error %@, %@", error, [error userInfo]);
+//    }
+//    fetchedResultsController.delegate = self;              // reconnect after mass delete
+//    if (![fetchedResultsController performFetch:&error]) { // resync controller
+//        // TODO: Handle the error appropriately.
+//        NSLog(@"fetchMessages error %@, %@", error, [error userInfo]);
+//    }
+//
+//}
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
 }
 #pragma mark -
 #pragma mark Fetched results controller
-
-- (NSFetchedResultsController *)fetchedResultsController {
-    // Set up the fetched results controller if needed.
-    if (fetchedResultsController == nil) {
-        // Create the fetch request for the entity.
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        // Edit the entity name as appropriate.
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Record" inManagedObjectContext:managedObjectContext];
-        [fetchRequest setEntity:entity];
-        
-        // Edit the sort key as appropriate.
-        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"appName" ascending:YES];
-        NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-        
-        [fetchRequest setSortDescriptors:sortDescriptors];
-        
-        // Edit the section name key path and cache name if appropriate.
-        // nil for section name key path means "no sections".
-        NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
-        aFetchedResultsController.delegate = self;
-        self.fetchedResultsController = aFetchedResultsController;
-        
-    }
-	
-	return fetchedResultsController;
-}
+//
+//- (NSFetchedResultsController *)fetchedResultsController {
+//    // Set up the fetched results controller if needed.
+//    if (fetchedResultsController == nil) {
+//        // Create the fetch request for the entity.
+//        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+//        // Edit the entity name as appropriate.
+//        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Record" inManagedObjectContext:managedObjectContext];
+//        [fetchRequest setEntity:entity];
+//        
+//        // Edit the sort key as appropriate.
+//        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"appName" ascending:YES];
+//        NSSortDescriptor *courntyDescriptor=[[NSSortDescriptor alloc]initWithKey:@"country.count" ascending:NO];
+//        NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor,courntyDescriptor, nil];
+////        NSExpression * many = [NSExpression expressionForFunction:@"count:" arguments:[NSArray arrayWithObject:[NSExpression expressionForKeyPath:@"country"]]];
+////        
+////        NSPredicate *pre=[[NSPredicate alloc]i]
+//
+//        [fetchRequest setSortDescriptors:sortDescriptors];
+////        [fetchRequest setPropertiesToGroupBy:@[@"country"]];
+//        [fetchRequest setResultType:NSManagedObjectResultType];
+//
+//        // Edit the section name key path and cache name if appropriate.
+//        // nil for section name key path means "no sections".
+//        NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:@"appName" cacheName:@"Root"];
+//        aFetchedResultsController.delegate = self;
+//        self.fetchedResultsController = aFetchedResultsController;
+//    }
+//	return fetchedResultsController;
+//}
 
 
 /**

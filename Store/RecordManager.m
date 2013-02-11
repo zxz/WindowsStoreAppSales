@@ -21,14 +21,17 @@
 //    moc = [[NSManagedObjectContext alloc]init] ;
 //	[moc setPersistentStoreCoordinator:self.psc];
 //	[moc setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+    [Record MR_truncateAll];
+    [[NSManagedObjectContext MR_defaultContext] MR_save];
 
    NSString * docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-//    NSLog(docPath);
+    NSLog(docPath);
 	NSFileManager *fm = [[NSFileManager alloc] init] ;
 	NSArray *fileNames = [fm contentsOfDirectoryAtPath:docPath error:NULL];
 //	NSString *filePath=[[NSBundle mainBundle]pathForResource:@"1" ofType:@"csv"];
 	
 	for (NSString *fileName in fileNames) {
+        NSLog(fileName);
         [self importFile:[ docPath stringByAppendingPathComponent:fileName]];
 //            newRecord.isbn=[bookInfo objectForKey:kIsbn];
 //            newRecord.price=[NSNumber numberWithInt:[[bookInfo objectForKey:kPrice]intValue]];
@@ -56,16 +59,24 @@
     if ([rows count]<2) {
         return ;
     }
+    
 
-    NSManagedObjectContext *localContext    = [NSManagedObjectContext MR_contextForCurrentThread];
-
+    NSManagedObjectContext *localContext  = [NSManagedObjectContext MR_defaultContext];
     for (int i=1; i<[rows count]-1;i++) {
       NSArray *details= [rows[i] componentsSeparatedByString:@","];
-//        Record *newRecord=[NSEntityDescription insertNewObjectForEntityForName:@"Record" inManagedObjectContext:moc];
-        Record *newRecord       = [Record MR_createInContext:localContext];
-
-        newRecord.date=[self dateFromReportDateString:details[0]];
-        
+        NSDate *insertDate=[self dateFromReportDateString:details[0]];
+       
+            if (![self hasRecordWithDate:insertDate]) {
+                tempDate=insertDate;
+            }
+            else{
+                if (![insertDate isEqualToDate: tempDate]) {
+                    continue;
+                }
+            }
+       
+        Record *newRecord= [Record MR_createInContext:localContext];
+        newRecord.date=insertDate;
         newRecord.appName=details[1];
         newRecord.transactionType=details[2];
         newRecord.offer=details[3];
@@ -85,7 +96,17 @@
 
     }
     [localContext MR_save];
+}
 
+-(BOOL)hasRecordWithDate:(NSDate *)date
+{
+    NSPredicate * predicate=[NSPredicate predicateWithFormat:@"date=%@",date];
+    NSNumber *count=[Record MR_numberOfEntitiesWithPredicate:predicate];
+    if (count.intValue>0) {
+        return YES;
+    }else{
+        return  NO;
+    }
 }
 
 -(NSDate *)dateFromReportDateString:(NSString *)dateString

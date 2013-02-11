@@ -10,9 +10,8 @@
 
 @interface RecordManager : NSObject
 {
-    NSManagedObjectContext *moc;
+    NSDate *tempDate;
 }
 +(RecordManager *)sharedInstance;
 -(void)importRecords;
-@property (strong,nonatomic) NSPersistentStoreCoordinator *psc;
 @end

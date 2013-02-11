@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Record.h"
-
+#import "SaleCount.h"
 @interface SalesViewController : UITableViewController<NSFetchedResultsControllerDelegate>
 {
-    
+    NSArray *dates;
+    NSMutableDictionary *dateToNumberDict;
+    SaleCount *allcount;
 }
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;

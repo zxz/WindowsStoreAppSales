@@ -8,6 +8,9 @@
 
 #import "SalesViewController.h"
 #import "RecordManager.h"
+#import "DailyViewController.h"
+#import "Query.h"
+#import "Util.h"
 @interface SalesViewController ()
 
 @end
@@ -21,7 +24,8 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        self.tabBarItem.image=[UIImage imageNamed:@"sale"];
+        self.tabBarItem.title =@"Daily Sales";
     }
     return self;
 }
@@ -32,63 +36,42 @@
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 //    [self reloadData];
     
-//    [Record MR_truncateAll];
-//    [self deleteAll];
+    //    [self deleteAll];
+    
     [self reloadData];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"country==%@ && appName==%@", @"US",@"Photo Locker"];
-        
-  //  int totalFat = [[Record MR_aggregateOperation:@"count:" onAttribute:@"country" withPredicate:predicate] intValue];
-    NSNumber *count = [Record MR_numberOfEntities];
-   
-    NSNumber *count1 = [Record MR_numberOfEntitiesWithPredicate:predicate];
-
-//NSNumber *count = [Record MR_countOfEntities];
-    self.title= [NSString stringWithFormat:@"%@", count] ;
+    dateToNumberDict=[NSMutableDictionary dictionaryWithCapacity:0];
+    
     
 }
 -(void)reloadData
 {
-//    NSError *error = nil;
-//
-//    if (![[self fetchedResultsController] performFetch:&error]) {
-//		/*
-//		 Replace this implementation with code to handle the error appropriately.
-//		 
-//		 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-//		 */
-//		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-//		return;
-//	}
-//    //    NSError *error;
-//    NSManagedObjectContext *addingManagedObjectContext = [self managedObjectContext];
-//    if (![addingManagedObjectContext save:&error]) {
-//        /*
-//         Replace this implementation with code to handle the error appropriately.
-//         
-//         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//         */
-//        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-//        return;
-//    }
     
-//    self.fetchedResultsController = [Record MR_fetchAllSortedBy:@"country"
-//                      ascending:YES
-//                  withPredicate:nil
-//                        groupBy:@"appName"
-//                       delegate:self
-//                      inContext:[NSManagedObjectContext MR_contextForCurrentThread]];
+    NSFetchRequest *dateRequest = [Record MR_requestAllWithPredicate:nil];
+    NSSortDescriptor *sortDescriptor2 = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
 
+    [dateRequest setSortDescriptors:@[sortDescriptor2]];
+     [dateRequest setResultType:NSDictionaryResultType];
+    [dateRequest setReturnsDistinctResults:YES];
+    [dateRequest setPropertiesToFetch:@[@"date"]];//    ...
     
-    self.fetchedResultsController=[Record MR_fetchAllGroupedBy:@"appName" withPredicate:nil sortedBy:@"appName,country" ascending:NO delegate:self inContext:[NSManagedObjectContext MR_contextForCurrentThread]];
+    dates = [Record MR_executeFetchRequest:dateRequest];
+    
+  allcount= [Query appCount:nil country:nil date:nil];
 
 [self.tableView reloadData];
 
 }
 -(void)refresh:(id)sender{
     [[RecordManager sharedInstance]importRecords];
-    [self reloadData];
+    NSArray *controllers=   self.tabBarController.childViewControllers;
+    for( id controller in controllers){
+        if ([controller respondsToSelector:@selector(reloadData)]) {
+            [controller reloadData];
+        }
+    }
 
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -97,23 +80,27 @@
 
 #pragma mark - Table view data source
 - (NSString *)tableView:(UITableView *)table titleForHeaderInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
-        return [NSString stringWithFormat:NSLocalizedString(@"%@  %d sale",nil), [sectionInfo name], [sectionInfo numberOfObjects]];
+//    id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
+//        return [NSString stringWithFormat:NSLocalizedString(@"%@  %d sale",nil), [sectionInfo name], [sectionInfo numberOfObjects]];
+    return [NSString stringWithFormat: @"Date %@",allcount.description];
 }
 
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 33;
+    return 44;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 //    NSLog(NSString *format, ...)
-    return [[self.fetchedResultsController sections]count];
+   // return [[self.fetchedResultsController sections]count];
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+//    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+//    return [sectionInfo numberOfObjects];
+    return dates.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -123,12 +110,20 @@
     UITableViewCell *cell ;
     cell=[tableView dequeueReusableHeaderFooterViewWithIdentifier:CellIdentifier];
     if (cell==nil){
-        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
         cell.textLabel.numberOfLines=0;
     }
-    Record *record = [self.fetchedResultsController objectAtIndexPath:indexPath];
-
-    cell.textLabel.text=[NSString stringWithFormat:@"%@  %@ %@",record.appName,record.price,record.country];
+    NSDate *date=(dates[indexPath.row])[kDate];
+//    Record *record = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    if (!dateToNumberDict[date]) {
+       dateToNumberDict[date]= [Query appCount:nil country:nil date:date];
+    }
+    
+    cell.textLabel.text= [Util dateToString:date];
+    SaleCount *sale=dateToNumberDict[date];
+    cell.detailTextLabel.text=sale.description;
+    
     return cell;
 }
 
@@ -192,6 +187,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    DailyViewController *detail=[[DailyViewController alloc]initWithStyle:UITableViewStyleGrouped];
+    detail.date=[(dates[indexPath.row])objectForKey:kDate];
+    
+    [self.navigationController pushViewController:detail animated:YES];
 }
 #pragma mark -
 #pragma mark Fetched results controller

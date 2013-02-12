@@ -112,11 +112,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Store/Query.m"
-         timestampString = "382160292.633994"
+         timestampString = "382367466.151924"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "31"
-         endingLineNumber = "31"
+         startingLineNumber = "28"
+         endingLineNumber = "28"
          landmarkName = "+appCount:country:date:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -125,11 +125,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Store/SalesViewController.m"
-         timestampString = "382280315.846398"
+         timestampString = "382370153.448084"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "59"
-         endingLineNumber = "59"
+         startingLineNumber = "62"
+         endingLineNumber = "62"
          landmarkName = "-reloadData"
          landmarkType = "5">
       </FileBreakpoint>
@@ -138,11 +138,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Store/Query.m"
-         timestampString = "382160315.199719"
+         timestampString = "382367466.151924"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "18"
-         endingLineNumber = "18"
+         startingLineNumber = "20"
+         endingLineNumber = "20"
          landmarkName = "+appCount:country:date:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -157,6 +157,19 @@
          startingLineNumber = "69"
          endingLineNumber = "69"
          landmarkName = "-importFile:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Store/Query.m"
+         timestampString = "382367466.151924"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "53"
+         endingLineNumber = "53"
+         landmarkName = "+appCount:country:date:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

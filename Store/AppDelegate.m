@@ -24,7 +24,7 @@
     
     NSString *currencyCode = [[NSLocale currentLocale] objectForKey:NSLocaleCurrencyCode];
 	if (![[CurrencyManager sharedManager].availableCurrencies containsObject:currencyCode]) {
-		currencyCode = @"USD";
+		currencyCode = @"JPY";
 	}
 	NSDictionary *defaults = [NSDictionary dictionaryWithObjectsAndKeys:
 							  currencyCode, @"CurrencyManagerBaseCurrency",

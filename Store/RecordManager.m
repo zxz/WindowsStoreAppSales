@@ -84,7 +84,7 @@
         newRecord.currency=details[5];
         newRecord.price=[NSNumber numberWithFloat:[details[6] floatValue]];;
         newRecord.storeFee=[NSNumber numberWithFloat:[details[7] floatValue]];
-        newRecord.proceedSale=[NSNumber numberWithDouble:[details[8] doubleValue]];
+        newRecord.proceedSale=[NSNumber numberWithDouble:[details[8] floatValue]];
         newRecord.proceedLocalSale=[NSNumber numberWithInt:0];//this is empty
         
         if ([details[10] length]==2) {

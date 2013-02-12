@@ -47,6 +47,7 @@
 		9F9D77EB16C38BE3001F9FD0 /* Sale.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D77E916C38BE3001F9FD0 /* Sale.xcdatamodeld */; };
 		9F9D77F116C38E4E001F9FD0 /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D77F016C38E4E001F9FD0 /* Record.m */; };
 		9F9D77F716C3A52F001F9FD0 /* RecordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D77F616C3A52F001F9FD0 /* RecordManager.m */; };
+		CD2AA0B716CA7E5600E6D8B3 /* CurrencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2AA0B616CA7E5600E6D8B3 /* CurrencyViewController.m */; };
 		CD5230F716C7455C004ECCC8 /* country_names.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD5230F616C7455C004ECCC8 /* country_names.plist */; };
 		CD5230FA16C7C3E7004ECCC8 /* SaleCount.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5230F916C7C3E7004ECCC8 /* SaleCount.m */; };
 		CD6CB29C16C7DB1900A53219 /* SDGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6CB29216C7DB1900A53219 /* SDGroupCell.m */; };
@@ -160,6 +161,8 @@
 		9F9D77F016C38E4E001F9FD0 /* Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Record.m; path = Store/Record.m; sourceTree = "<group>"; };
 		9F9D77F516C3A52F001F9FD0 /* RecordManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecordManager.h; path = Store/RecordManager.h; sourceTree = "<group>"; };
 		9F9D77F616C3A52F001F9FD0 /* RecordManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecordManager.m; path = Store/RecordManager.m; sourceTree = "<group>"; };
+		CD2AA0B516CA7E5600E6D8B3 /* CurrencyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyViewController.h; sourceTree = "<group>"; };
+		CD2AA0B616CA7E5600E6D8B3 /* CurrencyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyViewController.m; sourceTree = "<group>"; };
 		CD5230F616C7455C004ECCC8 /* country_names.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = country_names.plist; sourceTree = "<group>"; };
 		CD5230F816C7C3E7004ECCC8 /* SaleCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SaleCount.h; path = Store/SaleCount.h; sourceTree = "<group>"; };
 		CD5230F916C7C3E7004ECCC8 /* SaleCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SaleCount.m; path = Store/SaleCount.m; sourceTree = "<group>"; };
@@ -328,6 +331,8 @@
 		9F9D77A116C35A8D001F9FD0 = {
 			isa = PBXGroup;
 			children = (
+				CD2AA0B516CA7E5600E6D8B3 /* CurrencyViewController.h */,
+				CD2AA0B616CA7E5600E6D8B3 /* CurrencyViewController.m */,
 				CD6CB2DA16C921D700A53219 /* CurrencyManager.h */,
 				CD6CB2DB16C921D800A53219 /* CurrencyManager.m */,
 				CD6CB2C116C8AF3200A53219 /* image */,
@@ -605,6 +610,7 @@
 				CD6CB2D616C8D55800A53219 /* Path.m in Sources */,
 				CD6CB2D916C8D75A00A53219 /* NSString+url.m in Sources */,
 				CD6CB2DC16C921D900A53219 /* CurrencyManager.m in Sources */,
+				CD2AA0B716CA7E5600E6D8B3 /* CurrencyViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,5 +11,9 @@
 @interface SaleCount : NSObject
 @property (assign,nonatomic) int saleCount;
 @property (assign,nonatomic) int refundCount;
+
+@property (assign,nonatomic) float allSale;
+@property (assign,nonatomic) float refundSale;
+@property (assign,nonatomic) float realSale;
 -(int )realSaleCount;
 @end

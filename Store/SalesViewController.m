@@ -11,6 +11,7 @@
 #import "DailyViewController.h"
 #import "Query.h"
 #import "Util.h"
+#import "CurrencyViewController.h"
 @interface SalesViewController ()
 
 @end
@@ -34,14 +35,16 @@
 {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-//    [self reloadData];
-    
-    //    [self deleteAll];
-    
+
+    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(settingClick)];
     [self reloadData];
     dateToNumberDict=[NSMutableDictionary dictionaryWithCapacity:0];
     
     
+}
+-(void)settingClick{
+    CurrencyViewController *picker=[[CurrencyViewController alloc]initWithStyle:UITableViewStyleGrouped];
+    [self presentModalViewController:picker animated:YES];
 }
 -(void)reloadData
 {

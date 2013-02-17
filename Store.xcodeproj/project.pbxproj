@@ -83,6 +83,7 @@
 		CD6CB2DC16C921D900A53219 /* CurrencyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6CB2DB16C921D800A53219 /* CurrencyManager.m */; };
 		CD90B8E416C5FEA000A4F218 /* DailyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD90B8E316C5FEA000A4F218 /* DailyViewController.m */; };
 		CD90B8E716C6337900A4F218 /* Query.m in Sources */ = {isa = PBXBuildFile; fileRef = CD90B8E616C6337900A4F218 /* Query.m */; };
+		CD96CDE116D070C4001EC47A /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CD96CDE016D070C4001EC47A /* MBProgressHUD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -210,6 +211,8 @@
 		CD90B8E316C5FEA000A4F218 /* DailyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyViewController.m; sourceTree = "<group>"; };
 		CD90B8E516C6337900A4F218 /* Query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Query.h; path = Store/Query.h; sourceTree = "<group>"; };
 		CD90B8E616C6337900A4F218 /* Query.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Query.m; path = Store/Query.m; sourceTree = "<group>"; };
+		CD96CDDF16D070C4001EC47A /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		CD96CDE016D070C4001EC47A /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -452,6 +455,8 @@
 		CD6CB2B716C8925600A53219 /* utility */ = {
 			isa = PBXGroup;
 			children = (
+				CD96CDDF16D070C4001EC47A /* MBProgressHUD.h */,
+				CD96CDE016D070C4001EC47A /* MBProgressHUD.m */,
 				CD6CB2D716C8D75900A53219 /* NSString+url.h */,
 				CD6CB2D816C8D75A00A53219 /* NSString+url.m */,
 				CD6CB2B816C8926B00A53219 /* Util.h */,
@@ -611,6 +616,7 @@
 				CD6CB2D916C8D75A00A53219 /* NSString+url.m in Sources */,
 				CD6CB2DC16C921D900A53219 /* CurrencyManager.m in Sources */,
 				CD2AA0B716CA7E5600E6D8B3 /* CurrencyViewController.m in Sources */,
+				CD96CDE116D070C4001EC47A /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

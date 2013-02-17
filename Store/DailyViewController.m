@@ -12,7 +12,7 @@
 @interface DailyViewController ()
 
 @end
-
+  
 @implementation DailyViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -56,16 +56,24 @@
         
     }
     self.title=[Util dateToString:self.date];
+
     [self.tableView reloadData];
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [RecordManager sharedInstance].delegate=self;
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc]init];
+    [refreshControl addTarget:self action:@selector(fetchData) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
     [self reloadData];
     
 }
 
-
+-(void)fetchData{
+    [self reloadData];
+    [self.refreshControl endRefreshing];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -74,38 +82,6 @@
 
 #pragma mark - Table view data source
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//    return self.allApps.count;
-//}
-//-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-//    SaleCount *count=appNameAndCountryToCountDict[self.allApps[section]];
-//    return [NSString stringWithFormat:@"%@ %@",  self.allApps[section],count.description];
-//}
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//{
-//    return [appNameToDistinctCountryDict[self.allApps[section]] count];
-//}
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    static NSString *CellIdentifier = @"Cell";
-//    UITableViewCell *cell;// = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-//    if (cell==nil) {
-//        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
-//    }
-//    NSString *country=[appNameToDistinctCountryDict[self.allApps[indexPath.section]]objectAtIndex:indexPath.row];
-//    cell.textLabel.text=countryName[country];
-//    SaleCount *saleCount=appNameAndCountryToCountDict[[NSString stringWithFormat:@"%@%@",self.allApps[indexPath.section],country]];
-//    cell.detailTextLabel.text=saleCount.description;
-//    return cell;
-//}
-//
-//#pragma mark - Table view delegate
-//
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//}
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     SaleCount *count=[Query appCount:nil country:nil date:self.date];
@@ -129,8 +105,8 @@
 {
 //    item.itemText.text = [NSString stringWithFormat:@"My Main Item %u", indexPath.row +1];
     SaleCount *count=appNameAndCountryToCountDict[self.allApps[indexPath.row]];
-     item.itemText.text =[NSString stringWithFormat:@"%@ %@",  self.allApps[indexPath.row],count.description];
-
+     item.itemText.text =[NSString stringWithFormat:@"%@",  self.allApps[indexPath.row]];
+    item.detailText.text=count.description;
     return item;
 }
 
@@ -145,6 +121,8 @@
 
         SaleCount *saleCount=appNameAndCountryToCountDict[[NSString stringWithFormat:@"%@%@",self.allApps[item.cellIndexPath.row],country]];
        subItem.detailText.text=saleCount.description;
+    subItem.detailText.font=[UIFont fontWithName:@"Arial" size:10];
+
 
 //    subItem.itemText.text = [NSString stringWithFormat:@"My Sub Item %u", indexPath.row +1];
     return subItem;

@@ -9,14 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "Record.h"
 #import "SaleCount.h"
-@interface SalesViewController : UITableViewController<NSFetchedResultsControllerDelegate>
+#import "MBProgressHUD.h"
+#import "RecordManager.h"
+@interface SalesViewController : UITableViewController<NSFetchedResultsControllerDelegate,MBProgressHUDDelegate,RecordMangerDelegate>
 {
-    NSArray *dates;
+    MBProgressHUD *HUD;
     NSMutableDictionary *dateToNumberDict;
-    SaleCount *allcount;
+//    SaleCount *allcount;
+    NSCalendar *calendar;
+    NSMutableArray *months;
+    NSMutableDictionary *monthToDayDict;
 }
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
-
+-(void)reloadData;
 
 @end

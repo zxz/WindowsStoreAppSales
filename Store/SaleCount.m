@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 鄒 西中. All rights reserved.
 //
 
-#import "SaleCount.h"r
+#import "SaleCount.h"
 #import "CurrencyManager.h"
 @implementation SaleCount
 -(int )realSaleCount{

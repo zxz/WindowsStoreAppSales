@@ -8,6 +8,7 @@
 
 #import "CurrencyViewController.h"
 #import "CurrencyManager.h"
+#import "RecordManager.h"
 @interface CurrencyViewController ()
 
 @end
@@ -114,6 +115,7 @@
 {
     NSString *currency=cells[indexPath.row];
     [[CurrencyManager sharedManager]setBaseCurrency:currency];
+    [[RecordManager sharedInstance]refreshData];
     [self dismissModalViewControllerAnimated:YES ];
 }
 

@@ -9,6 +9,7 @@
 #import "WebBrowser.h"
 #import "Path.h"
 #import "NSString+url.h"
+#import "RecordManager.h"
 @implementation WebBrowser
 @synthesize webBrowser;
 
@@ -71,32 +72,15 @@
         savePath=[[Path documentPath]stringByAppendingPathComponent:[NSString urldecode:[[downloadString lastPathComponent]stringByAppendingPathExtension:@"csv"]]];
         NSData *data=[[NSData alloc]initWithContentsOfURL:request.URL];
         [data writeToFile:savePath atomically:YES];
+        [[RecordManager sharedInstance]importFile:savePath];
+//        [[RecordManager sharedInstance]refreshData];
         UIAlertView *alter=[[UIAlertView alloc]initWithTitle:@"Done" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil  , nil];
         [alter show];
+        
     } else {
     }
 
-//    NSString *MIME=request.;
-//    NSLog(MIME);
-//    if ([[[downloadString lastPathComponent]pathExtension]isEqualToString:@"mp3"]) {
-
-//
-//        //        else{
-//        //            NSString *title=[webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-//        //            savePath= [[Util documentPath]stringByAppendingPathComponent:[title stringByAppendingPathExtension:@"mp3"]];
-//        //        }
-//        [self.delegate myWebViewDownloadAction:request.URL.absoluteString filePath:savePath];
-//        AppDelegate *appDelegate=(AppDelegate *)[[UIApplication sharedApplication]delegate
-//                                                 ];
-//        [appDelegate selectTabBarIndex:1];
-//        
-//        
-//        return NO;
-//        
-//    }
-//    else{
         return YES;
-//    }
 }
 #pragma mark - View lifecycle
 

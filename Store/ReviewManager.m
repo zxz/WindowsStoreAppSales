@@ -70,6 +70,14 @@
     return @"";
 }
 
+-(NSArray *)allApplicationInfo{
+    NSURL *pageURL = [[NSURL alloc] initWithString: @"https://appdev.microsoft.com/StorePortals/en-US/Home/Index"];
+    NSString *pageHtml=[[NSString alloc]initWithContentsOfURL:pageURL encoding:NSUTF8StringEncoding error:nil];
+  NSArray *appIds= [self regexFetch:@"<div class=\"AnalyticsTile\" id=\"AnalyticsTile_(.+)\">" wholeString:pageHtml];
+//    <div class="appDetailFar">   <h3 class="clip"><span>
+    
+}
+
 -(void)analyzeData:(NSString *)html{
     
     NSArray *titles=[self regexFetch:@"ReviewCommentTitle\">(.+)</div" wholeString:html];
@@ -125,6 +133,7 @@
     }
     return result;
 }
+
 -(NSArray *)reviewsOfApp:(NSString *)appid{
   NSPredicate *filter=[NSPredicate predicateWithFormat:@"appId=%@",appid];
     NSArray *array=[Comment MR_findAllSortedBy:@"date"  ascending:NO withPredicate:filter inContext:[NSManagedObjectContext MR_defaultContext]];

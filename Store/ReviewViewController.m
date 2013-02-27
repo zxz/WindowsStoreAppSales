@@ -19,7 +19,8 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        self.tabBarItem.image=[UIImage imageNamed:@"comment"];
+        self.tabBarItem.title=@"Reviews";
     }
     return self;
 }
@@ -28,7 +29,7 @@
 {
     [super viewDidLoad];
     
-    self.navigationController.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
     
 }
 

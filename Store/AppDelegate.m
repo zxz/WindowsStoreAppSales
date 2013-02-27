@@ -46,9 +46,9 @@
     UINavigationController *navReview=[[UINavigationController alloc]initWithRootViewController:[[ReviewViewController alloc]initWithStyle:UITableViewStyleGrouped]];
     navReview.navigationBar.barStyle=UIBarStyleBlack;
     navReview.title=@"Review";
-    NSString *path=[[NSBundle mainBundle]pathForResource:@"a" ofType:@"html"];
-    NSString *html=[[NSString alloc]initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    [[ReviewManager sharedManager]analyzeData:html];
+//    NSString *path=[[NSBundle mainBundle]pathForResource:@"a" ofType:@"html"];
+//    NSString *html=[[NSString alloc]initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+//    [[ReviewManager sharedManager]analyzeData:html];
     
     self.tabBarController.viewControllers = @[[[DailyViewController alloc]initWithStyle:UITableViewStyleGrouped], nav,navReview, browser];
 //    [[RecordManager sharedInstance]setPsc:[self persistentStoreCoordinator]];

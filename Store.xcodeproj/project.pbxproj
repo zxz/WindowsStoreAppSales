@@ -52,6 +52,7 @@
 		9FA89EF616DDCBD00042C505 /* ReviewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA89EF516DDCBD00042C505 /* ReviewManager.m */; };
 		9FA89EF816DDE5D00042C505 /* a.html in Resources */ = {isa = PBXBuildFile; fileRef = 9FA89EF716DDE5D00042C505 /* a.html */; };
 		9FA89EFB16DDF77D0042C505 /* DetailCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA89EFA16DDF77D0042C505 /* DetailCommentViewController.m */; };
+		CD1ECD3416DE4763002687D6 /* comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD1ECD3316DE4763002687D6 /* comment@2x.png */; };
 		CD2AA0B716CA7E5600E6D8B3 /* CurrencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2AA0B616CA7E5600E6D8B3 /* CurrencyViewController.m */; };
 		CD5230F716C7455C004ECCC8 /* country_names.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD5230F616C7455C004ECCC8 /* country_names.plist */; };
 		CD5230FA16C7C3E7004ECCC8 /* SaleCount.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5230F916C7C3E7004ECCC8 /* SaleCount.m */; };
@@ -176,6 +177,7 @@
 		9FA89EF716DDE5D00042C505 /* a.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = a.html; sourceTree = "<group>"; };
 		9FA89EF916DDF77D0042C505 /* DetailCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailCommentViewController.h; sourceTree = "<group>"; };
 		9FA89EFA16DDF77D0042C505 /* DetailCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailCommentViewController.m; sourceTree = "<group>"; };
+		CD1ECD3316DE4763002687D6 /* comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment@2x.png"; sourceTree = "<group>"; };
 		CD2AA0B516CA7E5600E6D8B3 /* CurrencyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyViewController.h; sourceTree = "<group>"; };
 		CD2AA0B616CA7E5600E6D8B3 /* CurrencyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyViewController.m; sourceTree = "<group>"; };
 		CD5230F616C7455C004ECCC8 /* country_names.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = country_names.plist; sourceTree = "<group>"; };
@@ -493,6 +495,7 @@
 		CD6CB2C116C8AF3200A53219 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				CD1ECD3316DE4763002687D6 /* comment@2x.png */,
 				CD6CB2D216C8CCE100A53219 /* computer@2x.png */,
 				CD6CB2D016C8CBC300A53219 /* sale@2x.png */,
 				CD6CB2CE16C8CAFB00A53219 /* web@2x.png */,
@@ -585,6 +588,7 @@
 				CD6CB2D116C8CBC300A53219 /* sale@2x.png in Resources */,
 				CD6CB2D316C8CCE100A53219 /* computer@2x.png in Resources */,
 				9FA89EF816DDE5D00042C505 /* a.html in Resources */,
+				CD1ECD3416DE4763002687D6 /* comment@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

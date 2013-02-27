@@ -18,63 +18,62 @@
 }
 -(void)importRecords{
     
-//    moc = [[NSManagedObjectContext alloc]init] ;
-//	[moc setPersistentStoreCoordinator:self.psc];
-//	[moc setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
-    [Record MR_truncateAll];
+    //    moc = [[NSManagedObjectContext alloc]init] ;
+    //	[moc setPersistentStoreCoordinator:self.psc];
+    //	[moc setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+    [Record MR_truncateAllInContext:[NSManagedObjectContext MR_defaultContext]];
     [[NSManagedObjectContext MR_defaultContext] MR_save];
-
-   NSString * docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString * docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSLog(docPath);
 	NSFileManager *fm = [[NSFileManager alloc] init] ;
 	NSArray *fileNames = [fm contentsOfDirectoryAtPath:docPath error:NULL];
-//	NSString *filePath=[[NSBundle mainBundle]pathForResource:@"1" ofType:@"csv"];
+    //	NSString *filePath=[[NSBundle mainBundle]pathForResource:@"1" ofType:@"csv"];
 	
 	for (NSString *fileName in fileNames) {
         NSLog(fileName);
         [self importFile:[ docPath stringByAppendingPathComponent:fileName]];
-//            newRecord.isbn=[bookInfo objectForKey:kIsbn];
-//            newRecord.price=[NSNumber numberWithInt:[[bookInfo objectForKey:kPrice]intValue]];
-//            newRecord.introduction=[bookInfo objectForKey:kIntroduction];
-//            newRecord.quantity=[NSNumber numberWithInt:[[bookInfo objectForKey:kQuantity]intValue]];
-//            newRecord.condition=[bookInfo objectForKey:kCondition];
-//            newRecord.ship =[bookInfo objectForKey:kShip];
-//            newRecord.image=[bookInfo objectForKey:kImage];
-//            newRecord.sku=[bookInfo objectForKey:kSku];
-
     }
     NSError *saveError = nil;
-//    [moc save:&saveError];
+    //    [moc save:&saveError];
     if (saveError) {
         NSLog(@"Could not save context: %@", saveError);
     }
-
+    
 }
 
 -(void)importFile:(NSString *)filePath{
+    if (!filePath) {
+        return;
+    }
     NSString *fileContent=[[NSString alloc]initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    if (!fileContent) {
+        return;
+    }
     fileContent=[fileContent stringByReplacingOccurrencesOfString:@"\"" withString:@""];
     NSArray *rows=[fileContent componentsSeparatedByString:@"\n"];
-
+    
     if ([rows count]<2) {
         return ;
     }
-    
-
     NSManagedObjectContext *localContext  = [NSManagedObjectContext MR_defaultContext];
     for (int i=1; i<[rows count]-1;i++) {
-      NSArray *details= [rows[i] componentsSeparatedByString:@","];
+        NSArray *details= [rows[i] componentsSeparatedByString:@","];
         NSDate *insertDate=[self dateFromReportDateString:details[0]];
-       
-            if (![self hasRecordWithDate:insertDate]) {
-                tempDate=insertDate;
+        
+        if (![self hasRecordWithDate:insertDate]) {
+            tempDate=insertDate;
+        }
+        else{
+            if (![insertDate isEqualToDate: tempDate]) {
+                continue;
             }
-            else{
-                if (![insertDate isEqualToDate: tempDate]) {
-                    continue;
-                }
-            }
-       
+        }
+//        if(i==1){
+//            NSPredicate *predict=[NSPredicate predicateWithFormat:@"date=%@",insertDate];
+//            if ([Record MR_countOfEntitiesWithPredicate:predict]>0) {
+//                [Record MR_deleteAllMatchingPredicate:predict];
+//            }
+//        }
         Record *newRecord= [Record MR_createInContext:localContext];
         newRecord.date=insertDate;
         newRecord.appName=details[1];
@@ -84,7 +83,7 @@
         newRecord.currency=details[5];
         newRecord.price=[NSNumber numberWithFloat:[details[6] floatValue]];;
         newRecord.storeFee=[NSNumber numberWithFloat:[details[7] floatValue]];
-        newRecord.proceedSale=[NSNumber numberWithDouble:[details[8] doubleValue]];
+        newRecord.proceedSale=[NSNumber numberWithDouble:[details[8] floatValue]];
         newRecord.proceedLocalSale=[NSNumber numberWithInt:0];//this is empty
         
         if ([details[10] length]==2) {
@@ -93,9 +92,10 @@
             newRecord.isSettled=[NSNumber numberWithBool:YES];
         }
         newRecord.paymentDate=nil;//this is empty
-
+        
     }
     [localContext MR_save];
+//    [self refreshData];
 }
 
 -(BOOL)hasRecordWithDate:(NSDate *)date
@@ -119,10 +119,10 @@
     }
     NSArray *dates=[dateString componentsSeparatedByString:@"/"];
 	int year, month, day;
-		// new date format
-		year = [dates[2] intValue];
-		month = [dates[0] intValue];
-		day = [dates[1] intValue];
+    // new date format
+    year = [dates[2] intValue];
+    month = [dates[0] intValue];
+    day = [dates[1] intValue];
 	
 	NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 	[calendar setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
@@ -133,5 +133,7 @@
 	NSDate *date = [calendar dateFromComponents:components];
 	return date;
 }
-
+-(void)refreshData{
+    [self.delegate reloadData];
+}
 @end

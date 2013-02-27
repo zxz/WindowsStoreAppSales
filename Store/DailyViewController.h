@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "SDNestedTableViewController.h"
 #import "Record.h"
-@interface DailyViewController : SDNestedTableViewController{
+#import "RecordManager.h"
+@interface DailyViewController : SDNestedTableViewController<RecordMangerDelegate>{
     NSMutableDictionary *appNameToDistinctCountryDict;
     NSMutableDictionary *appNameAndCountryToCountDict;
     NSDictionary *countryName;

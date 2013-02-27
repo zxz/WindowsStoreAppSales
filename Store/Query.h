@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SaleCount.h"
 @interface Query : NSObject
-+(SaleCount *)appCount:(NSString *)appName country:(NSString *)country date:(NSDate *)date;
++(SaleCount *)appCount:(NSString *)appName country:(NSString *)country date:(id)date;
 +(NSArray *)allAppNameInDate:(NSDate*)date;
 +(NSArray *)countryWithAppName:(NSString *)appName date:(NSDate*)date;
 +(NSArray *)arrayDictionaryToArray:(NSArray *)array WithKey:(NSString *)key;

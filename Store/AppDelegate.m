@@ -24,7 +24,7 @@
     
     NSString *currencyCode = [[NSLocale currentLocale] objectForKey:NSLocaleCurrencyCode];
 	if (![[CurrencyManager sharedManager].availableCurrencies containsObject:currencyCode]) {
-		currencyCode = @"USD";
+		currencyCode = @"JPY";
 	}
 	NSDictionary *defaults = [NSDictionary dictionaryWithObjectsAndKeys:
 							  currencyCode, @"CurrencyManagerBaseCurrency",
@@ -37,6 +37,7 @@
 //    UIViewController *viewController2 = [[SecondViewController alloc] initWithNibName:@"SecondViewController" bundle:nil];
     self.tabBarController = [[UITabBarController alloc] init];
     UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:[[SalesViewController alloc]initWithStyle:UITableViewStyleGrouped]];
+    nav.navigationBar.barStyle=UIBarStyleBlack;
     nav.title=@"Daily Report";
     WebBrowser *browser = [[WebBrowser alloc]initWithNibName:@"WebBrowser" bundle:nil];
 

@@ -24,6 +24,7 @@ SelectableCellState;
     
     IBOutlet UIView *tapTransitionsOverlay;
 }
+@property (strong, nonatomic) IBOutlet UILabel *detailText;
 
 @property (nonatomic) IBOutlet UILabel *itemText;
 

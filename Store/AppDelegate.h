@@ -13,7 +13,7 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) UITabBarController *tabBarController;
-@property(strong,nonatomic)SalesViewController *saleViewController;
+//@property(assign,nonatomic) SalesViewController *saleViewController;
 
 
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;

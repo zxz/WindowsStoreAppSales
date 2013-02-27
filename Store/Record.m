@@ -13,6 +13,6 @@
 @dynamic date,price,transactionType,offer,storeFee,proceedLocalSale,appName,country,currency,isSettled,proceedSale,paymentDate;
 
 -(NSString *)debugDescription{
-    return [NSString stringWithFormat:@"%@ %@ %@ %@ %@",self.date,self.price,self.price,self.appName,self.country];
+    return [NSString stringWithFormat:@"%@ %@ %@ %@ %@",self.date,self.price,self.proceedSale,self.appName,self.country];
 }
 @end

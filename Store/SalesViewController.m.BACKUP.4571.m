@@ -39,6 +39,51 @@
     self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(settingClick)];
     calendar =[[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
     dateToNumberDict=[NSMutableDictionary dictionaryWithCapacity:0];
+    [self rating];
+    
+}
+
+-(void)rating{
+    //NSURL *sandboxStoreURL = [[NSURL alloc] initWithString: @"https://appdev.microsoft.com/StorePortals/en-US/Analytics/GetReportData/67f69611-1823-4e48-9974-c836c5b7a424/cdbc8787-b613-4141-9d76-98fcd3b727ec/1"];
+     NSURL *sandboxStoreURL = [[NSURL alloc] initWithString: @"https://appdev.microsoft.com/StorePortals/en-US/Analytics/ChangeReviewPage"];
+    NSString *dat=@"currentPage=1&market=US&appID=67f69611-1823-4e48-9974-c836c5b7a424";
+//    NSString *dat=@"[{\"Name\":\"MarketFilter\",\"SelectedMembers\":[\"US\"]}]";
+    NSData *postData =[NSData dataWithBytes:[dat UTF8String] length:[dat length]];
+    NSMutableURLRequest *connectionRequest = [NSMutableURLRequest requestWithURL:sandboxStoreURL];
+    [connectionRequest setHTTPMethod:@"POST"];
+    [connectionRequest setTimeoutInterval:330.0];
+    [connectionRequest setCachePolicy:NSURLRequestUseProtocolCachePolicy];
+    
+    [connectionRequest setHTTPBody:postData];
+//    [connectionRequest setHTTPShouldHandleCookies:YES];
+//    ///  NSArray *cookies=  [[NSHTTPCookieStorage sharedHTTPCookieStorage]cookiesForURL:[NSURL URLWithString:[self.urlField stringValue]]];
+//    NSArray *cookies=  [[NSHTTPCookieStorage sharedHTTPCookieStorage]cookies];
+//    NSDictionary * headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+//    //DLog(@"httpheader1:%@",[dict descriptionInStringsFileFormat]);
+//    NSMutableDictionary *dict=[NSMutableDictionary dictionaryWithObjectsAndKeys:
+//                               sandboxStoreURL.host,@"Host",
+//                               @"Mozilla/5.0 (Macintosh; U; Intel Mac OS X ) AppleWebKit/534.53.10 (KHTML, like Gecko) Version/5.1 Safari/534.53.10",@"User-Agent",
+//                               @"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8*",@"Accept",
+//                               @"ja,en-us;q=0.7,en;q=0.3",@"Accept-Language",
+//                               @"gzip, deflate",@"Accept-Encoding",
+//                               // self.urlField.stringValue,@"Referer",
+//                               @"keep-alive",@"Connection",
+//                               //@"video/x-flv",@"Content-Type",
+//                               nil];
+//
+//    [dict addEntriesFromDictionary:headers];
+//    // we are just recycling the original request
+//    
+//    [connectionRequest setAllHTTPHeaderFields:dict];
+
+    NSOperationQueue *queue=[NSOperationQueue mainQueue];
+    [NSURLConnection sendAsynchronousRequest:connectionRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+        if (data) {
+            NSString *result = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+            NSLog(@"iapresult=%@",result);
+        }}
+     ];
+=======
     months=[NSMutableArray arrayWithCapacity:0];
     monthToDayDict=[[NSMutableDictionary alloc]initWithCapacity:0];
     [RecordManager sharedInstance].delegate =self;
@@ -48,51 +93,10 @@
     self.refreshControl = refreshControl;
     
     [self reloadData];
-    [self rating];
 
+>>>>>>> e99047b4969d7f42907e6e5f3a451cb02a25ecba
 }
 
--(void)rating{
-    //NSURL *sandboxStoreURL = [[NSURL alloc] initWithString: @"https://appdev.microsoft.com/StorePortals/en-US/Analytics/GetReportData/67f69611-1823-4e48-9974-c836c5b7a424/cdbc8787-b613-4141-9d76-98fcd3b727ec/1"];
-    NSURL *sandboxStoreURL = [[NSURL alloc] initWithString: @"https://appdev.microsoft.com/StorePortals/en-US/Analytics/ChangeReviewPage"];
-    NSString *dat=@"currentPage=1&market=US&appID=67f69611-1823-4e48-9974-c836c5b7a424";
-    //    NSString *dat=@"[{\"Name\":\"MarketFilter\",\"SelectedMembers\":[\"US\"]}]";
-    NSData *postData =[NSData dataWithBytes:[dat UTF8String] length:[dat length]];
-    NSMutableURLRequest *connectionRequest = [NSMutableURLRequest requestWithURL:sandboxStoreURL];
-    [connectionRequest setHTTPMethod:@"POST"];
-    [connectionRequest setTimeoutInterval:330.0];
-    [connectionRequest setCachePolicy:NSURLRequestUseProtocolCachePolicy];
-    
-    [connectionRequest setHTTPBody:postData];
-    //    [connectionRequest setHTTPShouldHandleCookies:YES];
-    //    ///  NSArray *cookies=  [[NSHTTPCookieStorage sharedHTTPCookieStorage]cookiesForURL:[NSURL URLWithString:[self.urlField stringValue]]];
-    //    NSArray *cookies=  [[NSHTTPCookieStorage sharedHTTPCookieStorage]cookies];
-    //    NSDictionary * headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
-    //    //DLog(@"httpheader1:%@",[dict descriptionInStringsFileFormat]);
-    //    NSMutableDictionary *dict=[NSMutableDictionary dictionaryWithObjectsAndKeys:
-    //                               sandboxStoreURL.host,@"Host",
-    //                               @"Mozilla/5.0 (Macintosh; U; Intel Mac OS X ) AppleWebKit/534.53.10 (KHTML, like Gecko) Version/5.1 Safari/534.53.10",@"User-Agent",
-    //                               @"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8*",@"Accept",
-    //                               @"ja,en-us;q=0.7,en;q=0.3",@"Accept-Language",
-    //                               @"gzip, deflate",@"Accept-Encoding",
-    //                               // self.urlField.stringValue,@"Referer",
-    //                               @"keep-alive",@"Connection",
-    //                               //@"video/x-flv",@"Content-Type",
-    //                               nil];
-    //
-    //    [dict addEntriesFromDictionary:headers];
-    //    // we are just recycling the original request
-    //
-    //    [connectionRequest setAllHTTPHeaderFields:dict];
-    
-    NSOperationQueue *queue=[NSOperationQueue mainQueue];
-    [NSURLConnection sendAsynchronousRequest:connectionRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-        if (data) {
-            NSString *result = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-            NSLog(@"iapresult=%@",result);
-        }}
-     ];
-}
 -(void)fetchData{
     [self reloadData];
     [self.refreshControl endRefreshing];

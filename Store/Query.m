@@ -8,53 +8,64 @@
 
 #import "Query.h"
 #import "Record.h"
+#import "CurrencyManager.h"
 @implementation Query
-+(SaleCount *)appCount:(NSString *)appName country:(NSString *)country date:(NSDate *)date{
++(SaleCount *)appCount:(NSString *)appName country:(NSString *)country date:(id )date{
     NSPredicate *filter;
-    NSNumber *count;
     NSPredicate *filter2;
-    NSNumber *refundCount;
-    
-    if(appName==nil && country==nil&&date){
-        filter=[NSPredicate predicateWithFormat:@"date=%@ and price >0",date];
-        count=[Record MR_numberOfEntitiesWithPredicate:filter];
-        filter2=[NSPredicate predicateWithFormat:@"date=%@ and price <0",date];
-        refundCount=[Record MR_numberOfEntitiesWithPredicate:filter2];
+    NSArray *array1;
+    NSArray *array2;
+    if(appName==nil && country==nil&&[date isKindOfClass:[NSArray class]]){
+        filter=[NSPredicate predicateWithFormat:@"date>%@ and date<%@ and price >0",date[0],date[1]];
+        filter2=[NSPredicate predicateWithFormat:@"date>%@ and date<%@ and price <0",date[0],date[1]];
     }
+    else if(appName==nil && country==nil&&date){
+        filter=[NSPredicate predicateWithFormat:@"date=%@ and price >0",date];
+        filter2=[NSPredicate predicateWithFormat:@"date=%@ and price <0",date];
+    }
+
    else if (!country&&date) {// all country
         filter=[NSPredicate predicateWithFormat:@"date=%@ and appName=%@ and price >0",date,appName];
-        count=[Record MR_numberOfEntitiesWithPredicate:filter];
         filter2=[NSPredicate predicateWithFormat:@"date=%@ and appName=%@ and price <0",date,appName];
-        refundCount=[Record MR_numberOfEntitiesWithPredicate:filter2];
-        
     }
    else if(!date&&!country&&!appName){//all date and country
        filter=[NSPredicate predicateWithFormat:@"price>0"];
-       count=[Record MR_numberOfEntitiesWithPredicate:filter];
        filter2=[NSPredicate predicateWithFormat:@"price<0"];
-       refundCount=[Record MR_numberOfEntitiesWithPredicate:filter2];
    }
    else if(!date&&!country&&appName){
        filter=[NSPredicate predicateWithFormat:@"price>0 and appName=%@",appName];
-       count =[Record MR_numberOfEntitiesWithPredicate:filter];
        filter2=[NSPredicate predicateWithFormat:@"price<0 and appName=%@",appName];
-       refundCount=[Record MR_numberOfEntitiesWithPredicate:filter2];
    }
    else if(!date&&country&&appName){
        filter=[NSPredicate predicateWithFormat:@"price>0 &&country=%@ and appName=%@",country,appName];
-       count =[Record MR_numberOfEntitiesWithPredicate:filter];
        filter2=[NSPredicate predicateWithFormat:@"price<0 and country=%@ and appName=%@",country,appName];
-       refundCount=[Record MR_numberOfEntitiesWithPredicate:filter2];
+
    }
    else{
         filter=[NSPredicate predicateWithFormat:@"date=%@ and appName=%@ and country=%@ and price >0",date,appName, country];
-        count=[Record MR_numberOfEntitiesWithPredicate:filter];
         filter2=[NSPredicate predicateWithFormat:@"date=%@ and appName=%@ and country=%@ and price <0",date,appName, country];
-        refundCount=[Record MR_numberOfEntitiesWithPredicate:filter2];
+
     }
+    array1=[Record MR_findAllWithPredicate:filter inContext:[NSManagedObjectContext MR_defaultContext]];
+    array2=[Record MR_findAllWithPredicate:filter2 inContext:[NSManagedObjectContext MR_defaultContext]];
+    float realSale=0;
+    float refundSale=0;
+    for(Record *record in array1){
+      float money= [[CurrencyManager sharedManager]convertValue:record.proceedSale.floatValue fromCurrency:record.currency];
+        realSale=realSale+money;
+    }
+    
+    for(Record *record in array2){
+        float money= [[CurrencyManager sharedManager]convertValue:record.proceedSale.floatValue fromCurrency:record.currency];
+        refundSale=refundSale+money;
+    }
+    
     SaleCount *salecount=[[SaleCount alloc]init];
-    salecount.saleCount=[count intValue];
-    salecount.refundCount=[refundCount intValue];
+    salecount.allSale=realSale;
+    salecount.refundSale=refundSale;
+    salecount.realSale=realSale-refundSale;
+    salecount.saleCount=array1.count;
+    salecount.refundCount=array2.count;
     return salecount;
     
 }
@@ -67,13 +78,13 @@
     }else{
         filter=[NSPredicate predicateWithFormat:@"appName=%@",appName];
     }
-    NSFetchRequest *countryRequest=[Record MR_requestAllWithPredicate:filter];
+    NSFetchRequest *countryRequest=[Record MR_requestAllWithPredicate:filter inContext:[NSManagedObjectContext MR_defaultContext]];
     [countryRequest setResultType:NSDictionaryResultType];
     [countryRequest setReturnsDistinctResults:YES];
     NSSortDescriptor *sortDescriptor2 = [[NSSortDescriptor alloc] initWithKey:@"appName.numOfEntities" ascending:YES] ;
     [countryRequest setSortDescriptors:@[sortDescriptor2]];
     [countryRequest setPropertiesToFetch:@[kCountry]];
-    NSArray *country=[Record MR_executeFetchRequest:countryRequest];
+    NSArray *country=[Record MR_executeFetchRequest:countryRequest inContext:[NSManagedObjectContext MR_defaultContext]];
     return  [self arrayDictionaryToArray:country WithKey:kCountry];
 }
 
@@ -89,7 +100,7 @@
     [dateRequest setResultType:NSDictionaryResultType];
     [dateRequest setReturnsDistinctResults:YES];
     [dateRequest setPropertiesToFetch:@[kAppName]];
-    NSArray *apps= [Record MR_executeFetchRequest:dateRequest];
+    NSArray *apps= [Record MR_executeFetchRequest:dateRequest inContext:[NSManagedObjectContext MR_defaultContext]];
     return  [self arrayDictionaryToArray:apps WithKey:kAppName];
 }
 +(NSArray *)arrayDictionaryToArray:(NSArray *)array WithKey:(NSString *)key

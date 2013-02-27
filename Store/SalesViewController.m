@@ -48,7 +48,19 @@
     self.refreshControl = refreshControl;
     
     [self reloadData];
+    [self addTableViewHeaderClick];
+}
+-(void)addTableViewHeaderClick{
+    int count=[self numberOfSectionsInTableView:self.tableView];
+    for(int i =0;i<count;i++){
+        UITapGestureRecognizer *singleTapRecogniser = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureHandler:)];
+        [singleTapRecogniser setDelegate:self];
+        singleTapRecogniser.numberOfTouchesRequired = 1;
+        singleTapRecogniser.numberOfTapsRequired = 1;
+        [self tableView:self.tableView viewForHeaderInSection:i ].tag=i;
+        [[self tableView:self.tableView viewForHeaderInSection:i ] addGestureRecognizer:singleTapRecogniser];
 
+    }
 }
 
 -(void)fetchData{
@@ -56,6 +68,7 @@
     [self.refreshControl endRefreshing];
 
 }
+
 -(void)settingClick{
     CurrencyViewController *picker=[[CurrencyViewController alloc]initWithStyle:UITableViewStyleGrouped];
     [self presentModalViewController:picker animated:YES];
@@ -63,6 +76,9 @@
 
 -(void)reloadData
 {
+    [months removeAllObjects];
+    [monthToDayDict removeAllObjects];
+    [dateToNumberDict removeAllObjects];
     NSFetchRequest *dateRequest = [Record MR_requestAllWithPredicate:nil inContext:[NSManagedObjectContext MR_defaultContext]];
     NSSortDescriptor *sortDescriptor2 = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
 
@@ -73,6 +89,7 @@
     
     NSArray *dates = [Record MR_executeFetchRequest:dateRequest inContext:[NSManagedObjectContext MR_defaultContext]];
     dates=[Query arrayDictionaryToArray:dates WithKey:@"date"];
+    
     for(NSDate *date in dates){
         [self differentMonth:date];
     }
@@ -111,23 +128,26 @@
 }
 
 -(void)refresh:(id)sender{
-	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-	hud.labelText = @"Loading";
-	
-	dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-		// Do a taks in the background
-		[self loadData];
-		// Hide the HUD in the main tread
-		dispatch_async(dispatch_get_main_queue(), ^{
-			[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-		});
-	});
+//	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//	hud.labelText = @"Loading";
+    [[RecordManager sharedInstance]importRecords];
+    [self reloadData];
+    UIAlertView *al=[[UIAlertView alloc]initWithTitle:@"Done" message:@"" delegate:nil cancelButtonTitle:@"" otherButtonTitles:nil, nil];
+    [al show];
+//    [[RecordManager sharedInstance]refreshData];
+
+//	dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+//		// Do a taks in the background
+//		[self loadData];
+//		// Hide the HUD in the main tread
+//		dispatch_async(dispatch_get_main_queue(), ^{
+//			[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+//		});
+//	});
 
 }
 
 -(void)loadData{
-        [[RecordManager sharedInstance]importRecords];
-    [[RecordManager sharedInstance]refreshData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -135,12 +155,32 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 #pragma mark - Table view data source
 - (NSString *)tableView:(UITableView *)table titleForHeaderInSection:(NSInteger)section {
-//    id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
-//        return [NSString stringWithFormat:NSLocalizedString(@"%@  %d sale",nil), [sectionInfo name], [sectionInfo numberOfObjects]];
+    NSArray *oneMonth=[self monthDateArray:section];
+   SaleCount *sale=[Query appCount:nil country:nil date:oneMonth];
+//    UITapGestureRecognizer *singleTapRecogniser = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureHandler:)];
+//    [singleTapRecogniser setDelegate:self];
+//    singleTapRecogniser.numberOfTouchesRequired = 1;
+//    singleTapRecogniser.numberOfTapsRequired = 1;
+//    singleTapRecogniser.delegate=self;
+//    [self tableView:self.tableView viewForHeaderInSection:section ].tag=section;
+//    [[self tableView:self.tableView viewForHeaderInSection:section ]addGestureRecognizer:singleTapRecogniser];
     
+    UIControl *result = nil;
+    result = [[UIControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.bounds.size.width, 34.0f)];
+    result.backgroundColor = [UIColor redColor];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"computer"]];
+    imageView.frame = CGRectMake(2.0f, 2.0f, imageView.frame.size.width, imageView.frame.size.height);
+    [result addSubview:imageView];
+    result.tag = section;
+    [result addTarget:self action:@selector(headerIsTapEvent:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+
+    return [NSString stringWithFormat: @"%@ %@",[Util dateToString: months[section]], sale.description];
+}
+-(NSArray *)monthDateArray:(int) section{
     NSDate *datefrom=months[section];
     NSDate *dateTo;
     if (section==0) {
@@ -148,19 +188,15 @@
     }else{
         dateTo=months[section-1];
     }
-    
-   SaleCount *sale=[Query appCount:nil country:nil date:@[datefrom,dateTo]];
-    return [NSString stringWithFormat: @"%@ %@",[Util dateToString: months[section]], sale.description];
-}
 
+    return @[datefrom,dateTo];
+}
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 44;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-//    NSLog(NSString *format, ...)
-   // return [[self.fetchedResultsController sections]count];
     return months.count;
 }
 
@@ -194,6 +230,13 @@
     cell.textLabel.text= [Util dateToString:date];
     SaleCount *sale=dateToNumberDict[date];
     cell.detailTextLabel.text=sale.description;
+
+    if (sale.realSale>10000) {
+        cell.detailTextLabel.textColor=[UIColor redColor];
+    }else{
+        cell.detailTextLabel.textColor=[UIColor darkTextColor];
+
+    }
     
     return cell;
 }
@@ -210,6 +253,16 @@
     detail.date=date;
     
     [self.navigationController pushViewController:detail animated:YES];
+}
+- (void) gestureHandler:(UIGestureRecognizer *)gestureRecognizer;
+{
+    int section= [gestureRecognizer view].tag;
+    NSArray *oneMonth=[self monthDateArray:section];
+    DailyViewController *detail=[[DailyViewController alloc]initWithStyle:UITableViewStyleGrouped];
+    
+    detail.date=oneMonth;
+    [self.navigationController pushViewController:detail animated:YES];
+
 }
 
 @end

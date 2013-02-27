@@ -11,7 +11,7 @@
 #import "SaleCount.h"
 #import "MBProgressHUD.h"
 #import "RecordManager.h"
-@interface SalesViewController : UITableViewController<NSFetchedResultsControllerDelegate,MBProgressHUDDelegate,RecordMangerDelegate>
+@interface SalesViewController : UITableViewController<NSFetchedResultsControllerDelegate,MBProgressHUDDelegate,RecordMangerDelegate,UIGestureRecognizerDelegate>
 {
     MBProgressHUD *HUD;
     NSMutableDictionary *dateToNumberDict;

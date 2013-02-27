@@ -15,6 +15,6 @@
     NSMutableDictionary *appNameAndCountryToCountDict;
     NSDictionary *countryName;
 }
-@property (strong,nonatomic)NSDate *date;
+@property (strong,nonatomic)id date;//this may be nsarray or nsdate
 @property (strong,nonatomic)NSArray *allApps;
 @end

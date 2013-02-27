@@ -20,7 +20,7 @@
 @property (retain,nonatomic) id<RecordMangerDelegate>delegate;
 +(RecordManager *)sharedInstance;
 -(void)importRecords;
--(void)importFile:(NSString *)filePath;
+-(void)importFile:(NSString *)filePath shouldRemoveOld:(BOOL) shouldRemove;
 -(void)refreshData;
 
 @end

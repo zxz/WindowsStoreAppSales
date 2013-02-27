@@ -31,7 +31,7 @@
 	
 	for (NSString *fileName in fileNames) {
         NSLog(fileName);
-        [self importFile:[ docPath stringByAppendingPathComponent:fileName]];
+        [self importFile:[ docPath stringByAppendingPathComponent:fileName] shouldRemoveOld:NO];
     }
     NSError *saveError = nil;
     //    [moc save:&saveError];
@@ -41,7 +41,7 @@
     
 }
 
--(void)importFile:(NSString *)filePath{
+-(void)importFile:(NSString *)filePath shouldRemoveOld:(BOOL) shouldRemove{
     if (!filePath) {
         return;
     }
@@ -56,10 +56,22 @@
         return ;
     }
     NSManagedObjectContext *localContext  = [NSManagedObjectContext MR_defaultContext];
+    
     for (int i=1; i<[rows count]-1;i++) {
         NSArray *details= [rows[i] componentsSeparatedByString:@","];
         NSDate *insertDate=[self dateFromReportDateString:details[0]];
         
+        if (shouldRemove) {
+            if(i==1){
+                NSPredicate *predict=[NSPredicate predicateWithFormat:@"date=%@",insertDate];
+                if ([Record MR_countOfEntitiesWithPredicate:predict]>0) {
+                    [Record MR_deleteAllMatchingPredicate:predict];
+                }
+            }
+
+        }
+        else{
+            
         if (![self hasRecordWithDate:insertDate]) {
             tempDate=insertDate;
         }
@@ -68,12 +80,8 @@
                 continue;
             }
         }
-//        if(i==1){
-//            NSPredicate *predict=[NSPredicate predicateWithFormat:@"date=%@",insertDate];
-//            if ([Record MR_countOfEntitiesWithPredicate:predict]>0) {
-//                [Record MR_deleteAllMatchingPredicate:predict];
-//            }
-//        }
+            
+        }
         Record *newRecord= [Record MR_createInContext:localContext];
         newRecord.date=insertDate;
         newRecord.appName=details[1];

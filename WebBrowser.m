@@ -69,10 +69,25 @@
         NSString *downloadString=request.URL.absoluteString;
         NSLog(@"down:%@",downloadString);
         NSString *savePath;
-        savePath=[[Path documentPath]stringByAppendingPathComponent:[NSString urldecode:[[downloadString lastPathComponent]stringByAppendingPathExtension:@"csv"]]];
+        NSArray *urls=[url componentsSeparatedByString:@"/"];
+        int count= [urls count];
+        if (count<2) {
+            return YES;
+        }
+        savePath=[[Path documentPath]stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_%@.%@",urls[count-2],urls[count-1], @"csv"]];
         NSData *data=[[NSData alloc]initWithContentsOfURL:request.URL];
+        
+        NSString *contect=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+        if ([contect rangeOfString:@"doesn't include any transactions"].location!=NSNotFound) {
+            UIAlertView *alter=[[UIAlertView alloc]initWithTitle:@"No data avaliable" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil  , nil];
+            [alter show];
+            return YES;
+        }
+        
         [data writeToFile:savePath atomically:YES];
-        [[RecordManager sharedInstance]importFile:savePath];
+        
+        
+        [[RecordManager sharedInstance]importFile:savePath shouldRemoveOld:YES];
 //        [[RecordManager sharedInstance]refreshData];
         UIAlertView *alter=[[UIAlertView alloc]initWithTitle:@"Done" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil  , nil];
         [alter show];

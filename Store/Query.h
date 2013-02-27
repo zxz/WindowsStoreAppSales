@@ -10,7 +10,7 @@
 #import "SaleCount.h"
 @interface Query : NSObject
 +(SaleCount *)appCount:(NSString *)appName country:(NSString *)country date:(id)date;
-+(NSArray *)allAppNameInDate:(NSDate*)date;
-+(NSArray *)countryWithAppName:(NSString *)appName date:(NSDate*)date;
++(NSArray *)allAppNameInDate:(id)date;
++(NSArray *)countryWithAppName:(NSString *)appName date:(id)date;
 +(NSArray *)arrayDictionaryToArray:(NSArray *)array WithKey:(NSString *)key;
 @end

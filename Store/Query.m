@@ -55,6 +55,7 @@
         filter2=[NSPredicate predicateWithFormat:@"date=%@ and appName=%@ and country=%@ and price <0",date,appName, country];
         
     }
+    
     array1=[Record MR_findAllWithPredicate:filter inContext:[NSManagedObjectContext MR_defaultContext]];
     array2=[Record MR_findAllWithPredicate:filter2 inContext:[NSManagedObjectContext MR_defaultContext]];
     float realSale=0;

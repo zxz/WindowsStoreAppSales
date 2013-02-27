@@ -11,6 +11,8 @@
 #import "DailyViewController.h"
 #import "WebBrowser.h"
 #import "CurrencyManager.h"
+#import "ReviewViewController.h"
+#import "ReviewManager.h"
 @implementation AppDelegate
 
 @synthesize managedObjectModel=_managedObjectModel, managedObjectContext=_managedObjectContext, persistentStoreCoordinator=_persistentStoreCoordinator;
@@ -40,8 +42,15 @@
     nav.navigationBar.barStyle=UIBarStyleBlack;
     nav.title=@"Daily Report";
     WebBrowser *browser = [[WebBrowser alloc]initWithNibName:@"WebBrowser" bundle:nil];
-
-    self.tabBarController.viewControllers = @[[[DailyViewController alloc]initWithStyle:UITableViewStyleGrouped], nav,browser];
+    
+    UINavigationController *navReview=[[UINavigationController alloc]initWithRootViewController:[[ReviewViewController alloc]initWithStyle:UITableViewStyleGrouped]];
+    navReview.navigationBar.barStyle=UIBarStyleBlack;
+    navReview.title=@"Review";
+    NSString *path=[[NSBundle mainBundle]pathForResource:@"a" ofType:@"html"];
+    NSString *html=[[NSString alloc]initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    [[ReviewManager sharedManager]analyzeData:html];
+    
+    self.tabBarController.viewControllers = @[[[DailyViewController alloc]initWithStyle:UITableViewStyleGrouped], nav,navReview, browser];
 //    [[RecordManager sharedInstance]setPsc:[self persistentStoreCoordinator]];
 //    self.saleViewController.managedObjectContext=[self managedObjectContext];
 //    self.window.rootViewController=nav;

@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Store/AppDelegate.m"
-         timestampString = "382003595.883925"
+         timestampString = "383641316.225802"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "181"
-         endingLineNumber = "181"
+         startingLineNumber = "190"
+         endingLineNumber = "190"
          landmarkName = "-applicationDocumentsDirectory"
          landmarkType = "5">
       </FileBreakpoint>
@@ -21,7 +21,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Store/SalesViewController.m"
-         timestampString = "383619878.031017"
+         timestampString = "383641192.305949"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "155"
@@ -34,7 +34,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Store/SalesViewController.m"
-         timestampString = "383619878.031017"
+         timestampString = "383641192.305949"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "296"
@@ -45,7 +45,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Store/SalesViewController.m"
-         timestampString = "383619878.031017"
+         timestampString = "383641192.305949"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "287"
@@ -56,11 +56,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Store/AppDelegate.m"
-         timestampString = "381982302.572384"
+         timestampString = "383641192.305949"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "25"
-         endingLineNumber = "25"
+         startingLineNumber = "27"
+         endingLineNumber = "27"
          landmarkName = "-application:didFinishLaunchingWithOptions:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -101,6 +101,19 @@
          startingLineNumber = "48"
          endingLineNumber = "48"
          landmarkName = "-viewDidLoad"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Store/ReviewManager.m"
+         timestampString = "383641320.89502"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "74"
+         endingLineNumber = "74"
+         landmarkName = "-analyzeData:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

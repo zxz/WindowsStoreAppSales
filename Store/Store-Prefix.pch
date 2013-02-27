@@ -35,6 +35,9 @@
 #define kStoreFee @"storeFee"
 #define kProceedSale @"proceedSale"
 
+#define kAppId @"appid"
+
+
 
 
 #define UIColorFromRGB(rgbValue) [UIColor \

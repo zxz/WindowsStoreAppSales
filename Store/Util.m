@@ -23,5 +23,18 @@
     NSString *stringFromDate = [formatter stringFromDate:date];
     return stringFromDate;
 }
++(NSDate *)stringToDate:(NSString*)string{
+    static NSDateFormatter *formatter=nil;
+    if(formatter==nil){
+        formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"dd/MM/yyyy hh:mm aa"];
+        
+    }
+    
+    //Optionally for time zone converstions
+    //    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
+    NSDate *formatterDate = [formatter dateFromString:string];
+    return formatterDate;
+}
 
 @end

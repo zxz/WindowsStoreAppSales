@@ -30,7 +30,7 @@
     [super viewDidLoad];
     
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-    
+    apps=[[ReviewManager sharedManager]allApplicationInfo];
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,7 +39,11 @@
 
 }
 -(void)refresh:(id)sender{
-    [ReviewManager sharedManager];
+    for(id app in apps){
+    [[ReviewManager sharedManager]fetchReviews:app];
+    }
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Done" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
 }
 #pragma mark - Table view data source
 
@@ -50,7 +54,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return [apps count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -64,7 +68,7 @@
         cell.detailTextLabel.font=[UIFont fontWithName:@"Arial" size:13];
         cell.textLabel.numberOfLines=0;
     }
-    cell.textLabel.text=@"Computer";
+    cell.textLabel.text= [apps[indexPath.row] objectForKey:kAppName];
     // Configure the cell...
     
     return cell;
@@ -114,7 +118,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DetailCommentViewController *detail=[[DetailCommentViewController alloc]initWithStyle:UITableViewStyleGrouped];
-    detail.appid=@"67f69611-1823-4e48-9974-c836c5b7a424";
+    detail.appid= [apps[indexPath.row] objectForKey:kAppId];
     [self.navigationController pushViewController:detail animated:YES];
 }
 

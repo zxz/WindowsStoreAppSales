@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ReviewViewController : UITableViewController
-
+{
+    NSArray *apps;
+}
 @end

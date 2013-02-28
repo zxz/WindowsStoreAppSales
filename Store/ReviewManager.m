@@ -20,11 +20,11 @@
 
 -(void)fetchReviews:(NSDictionary *)appInfo
 {
-    NSString *result =[self htmlPage:appInfo];
+   [self htmlPage:appInfo];
 
 }
 
--(NSString *)htmlPage:(NSDictionary *)appInfo{
+-(void)htmlPage:(NSDictionary *)appInfo{
     //NSURL *sandboxStoreURL = [[NSURL alloc] initWithString: @"https://appdev.microsoft.com/StorePortals/en-US/Analytics/GetReportData/67f69611-1823-4e48-9974-c836c5b7a424/cdbc8787-b613-4141-9d76-98fcd3b727ec/1"];
     NSURL *sandboxStoreURL = [[NSURL alloc] initWithString: @"https://appdev.microsoft.com/StorePortals/en-US/Analytics/ChangeReviewPage"];
     NSString *dat=[NSString stringWithFormat: @"currentPage=1&market=US&appID=%@",appInfo[kAppId]];
@@ -58,22 +58,33 @@
     //    [connectionRequest setAllHTTPHeaderFields:dict];
     
     NSOperationQueue *queue=[NSOperationQueue mainQueue];
-    [NSURLConnection sendAsynchronousRequest:connectionRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-        if (data) {
-            NSString *result = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-           // NSLog(@"iapresult=%@",result);
-           // return result;
-        }else{
-         //   return @"";
-        }
-    }];
-    return @"";
+        NSData *data=[NSURLConnection sendSynchronousRequest:connectionRequest returningResponse:nil error:nil];
+    NSString *info=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+    [self analyzeData:info];
+//    [NSURLConnection sendAsynchronousRequest:connectionRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+//        if (data) {
+//            NSString *result = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+//            [self analyzeData:result];
+//        }else{
+//        }
+//    }];
+  //  return @"";
 }
 
 -(NSArray *)allApplicationInfo{
+    NSMutableArray *results=[NSMutableArray arrayWithCapacity:0];
     NSURL *pageURL = [[NSURL alloc] initWithString: @"https://appdev.microsoft.com/StorePortals/en-US/Home/Index"];
     NSString *pageHtml=[[NSString alloc]initWithContentsOfURL:pageURL encoding:NSUTF8StringEncoding error:nil];
-  NSArray *appIds= [self regexFetch:@"<div class=\"AnalyticsTile\" id=\"AnalyticsTile_(.+)\">" wholeString:pageHtml];
+    NSArray *appsHtml=[pageHtml componentsSeparatedByString:@"appDetailsContainer"];
+    for(NSString * html in appsHtml){
+        if([html rangeOfString:@"Downloads:"].location==NSNotFound) continue;
+        NSArray *appIds= [self regexFetch:@"<div class=\"AnalyticsTile\" id=\"AnalyticsTile_(.+)\">" wholeString:html];
+        NSArray *appName=[self regexFetch:@"<h3 class=\"clip\"><span>(.+)</span" wholeString:html];
+        [results addObject:@{kAppName:appName[0],kAppId:appIds[0]}];
+
+    }
+    return results;
+    
 //    <div class="appDetailFar">   <h3 class="clip"><span>
     
 }

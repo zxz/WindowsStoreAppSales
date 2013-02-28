@@ -27,8 +27,8 @@
     static NSDateFormatter *formatter=nil;
     if(formatter==nil){
         formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"dd/MM/yyyy hh:mm aa"];
-        
+        [formatter setDateFormat:@"MM/dd/yyyy HH:mm a"];
+        formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
     }
     
     //Optionally for time zone converstions

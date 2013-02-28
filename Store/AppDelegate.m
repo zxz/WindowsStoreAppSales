@@ -13,6 +13,7 @@
 #import "CurrencyManager.h"
 #import "ReviewViewController.h"
 #import "ReviewManager.h"
+#import "Util.h"
 @implementation AppDelegate
 
 @synthesize managedObjectModel=_managedObjectModel, managedObjectContext=_managedObjectContext, persistentStoreCoordinator=_persistentStoreCoordinator;

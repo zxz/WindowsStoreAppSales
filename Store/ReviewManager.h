@@ -11,5 +11,7 @@
 @interface ReviewManager : NSObject
 + (ReviewManager *)sharedManager;
 -(void)analyzeData:(NSString *)html;
+-(NSArray *)allApplicationInfo;
 -(NSArray *)reviewsOfApp:(NSString *)appid;
+-(void)fetchReviews:(NSDictionary *)appInfo;
 @end

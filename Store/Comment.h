@@ -20,5 +20,6 @@
 @property (nonatomic, retain) NSDate * date;
 @property (nonatomic, retain) NSString * user;
 @property (nonatomic, retain) NSString *appId;
+@property (nonatomic, retain) NSString *appName;
 
 @end

@@ -5,7 +5,7 @@
 //  Created by XiZhong Zou on 2/9/13.
 //  Copyright (c) 2013 鄒 西中. All rights reserved.
 //
-
+#import "Comment.h"
 #import "Query.h"
 #import "Record.h"
 #import "CurrencyManager.h"
@@ -108,7 +108,7 @@
     NSFetchRequest *dateRequest;
     if (date) {
         if ([date isKindOfClass:[NSArray class]]) {
-            dateRequest = [Record MR_requestAllWhere:kDate isEqualTo:[date lastObject] ];
+            dateRequest = [Record MR_requestAllWhere:kDate isEqualTo:(NSDate*)[date firstObject] ];
 
         }else{
         dateRequest = [Record MR_requestAllWhere:kDate isEqualTo:date];
@@ -123,6 +123,17 @@
     NSArray *apps= [Record MR_executeFetchRequest:dateRequest inContext:[NSManagedObjectContext MR_defaultContext]];
     return  [self arrayDictionaryToArray:apps WithKey:kAppName];
 }
+
++(NSArray *)allAppNameInReview{
+    NSFetchRequest *request;
+    request=[Comment MR_requestAllInContext:[NSManagedObjectContext MR_defaultContext]];
+    [request setResultType:NSDictionaryResultType];
+    [request setReturnsDistinctResults:YES];
+    [request setPropertiesToFetch:@[kAppName]];
+    NSArray *apps=[Comment MR_executeFetchRequest:request inContext:[NSManagedObjectContext MR_defaultContext]];
+    return [self arrayDictionaryToArray:apps WithKey:kAppName];
+}
+
 +(NSArray *)arrayDictionaryToArray:(NSArray *)array WithKey:(NSString *)key
 {
     NSMutableArray *appNames=[NSMutableArray arrayWithCapacity:0];

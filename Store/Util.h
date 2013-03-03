@@ -11,4 +11,5 @@
 @interface Util : NSObject
 +(NSString *)dateToString:(NSDate*)date;
 +(NSDate *)stringToDate:(NSString*)string;
++(NSString *)dateDetailToString:(NSDate*)date;
 @end

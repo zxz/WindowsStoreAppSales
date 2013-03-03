@@ -15,7 +15,7 @@
 {
     MBProgressHUD *HUD;
     NSMutableDictionary *dateToNumberDict;
-//    SaleCount *allcount;
+    UIView *headerView;
     NSCalendar *calendar;
     NSMutableArray *months;
     NSMutableDictionary *monthToDayDict;

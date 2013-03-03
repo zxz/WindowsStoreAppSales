@@ -9,9 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @interface ReviewManager : NSObject
+{
+    NSDictionary *countrys;
+}
 + (ReviewManager *)sharedManager;
--(void)analyzeData:(NSString *)html;
+-(void)analyzeData:(NSString *)html appName:(NSString *)appName;
 -(NSArray *)allApplicationInfo;
 -(NSArray *)reviewsOfApp:(NSString *)appid;
 -(void)fetchReviews:(NSDictionary *)appInfo;
+
 @end

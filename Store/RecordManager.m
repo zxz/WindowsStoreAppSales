@@ -55,7 +55,7 @@
     if ([rows count]<2) {
         return ;
     }
-    NSManagedObjectContext *localContext  = [NSManagedObjectContext MR_defaultContext];
+    NSManagedObjectContext *localContext  = [NSManagedObjectContext MR_contextForCurrentThread];
     
     for (int i=1; i<[rows count]-1;i++) {
         NSArray *details= [rows[i] componentsSeparatedByString:@","];
@@ -103,7 +103,6 @@
         
     }
     [localContext MR_save];
-//    [self refreshData];
 }
 
 -(BOOL)hasRecordWithDate:(NSDate *)date

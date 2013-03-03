@@ -23,6 +23,18 @@
     NSString *stringFromDate = [formatter stringFromDate:date];
     return stringFromDate;
 }
++(NSString *)dateDetailToString:(NSDate*)date{
+    static NSDateFormatter *formatter=nil;
+    if(formatter==nil){
+        formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"YYYY-MM-dd HH:mm a"];
+        
+    }
+    
+    NSString *stringFromDate = [formatter stringFromDate:date];
+    return stringFromDate;
+}
+
 +(NSDate *)stringToDate:(NSString*)string{
     static NSDateFormatter *formatter=nil;
     if(formatter==nil){

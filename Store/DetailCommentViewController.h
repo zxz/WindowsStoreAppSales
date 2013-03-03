@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Comment.h"
+#import "ReviewCell.h"
 @interface DetailCommentViewController : UITableViewController
 {
     NSArray *reviews;

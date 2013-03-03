@@ -19,4 +19,5 @@
 @dynamic date;
 @dynamic user;
 @dynamic appId;
+@dynamic appName;
 @end

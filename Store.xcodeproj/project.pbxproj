@@ -50,7 +50,6 @@
 		9FA89EF016DDAEFB0042C505 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA89EEF16DDAEFB0042C505 /* Comment.m */; };
 		9FA89EF316DDB0030042C505 /* ReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA89EF216DDB0030042C505 /* ReviewViewController.m */; };
 		9FA89EF616DDCBD00042C505 /* ReviewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA89EF516DDCBD00042C505 /* ReviewManager.m */; };
-		9FA89EF816DDE5D00042C505 /* a.html in Resources */ = {isa = PBXBuildFile; fileRef = 9FA89EF716DDE5D00042C505 /* a.html */; };
 		9FA89EFB16DDF77D0042C505 /* DetailCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA89EFA16DDF77D0042C505 /* DetailCommentViewController.m */; };
 		CD1ECD3416DE4763002687D6 /* comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD1ECD3316DE4763002687D6 /* comment@2x.png */; };
 		CD2AA0B716CA7E5600E6D8B3 /* CurrencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2AA0B616CA7E5600E6D8B3 /* CurrencyViewController.m */; };
@@ -89,6 +88,9 @@
 		CD6CB2DC16C921D900A53219 /* CurrencyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6CB2DB16C921D800A53219 /* CurrencyManager.m */; };
 		CD90B8E416C5FEA000A4F218 /* DailyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD90B8E316C5FEA000A4F218 /* DailyViewController.m */; };
 		CD90B8E716C6337900A4F218 /* Query.m in Sources */ = {isa = PBXBuildFile; fileRef = CD90B8E616C6337900A4F218 /* Query.m */; };
+		CD92453016E18C4A00277A17 /* ReviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CD92452F16E18C4A00277A17 /* ReviewCell.m */; };
+		CD92453316E18D3000277A17 /* ReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD92453216E18D3000277A17 /* ReviewCell.xib */; };
+		CD92453616E1FBD000277A17 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = CD92453516E1FBD000277A17 /* GTMNSString+HTML.m */; };
 		CD96CDE116D070C4001EC47A /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CD96CDE016D070C4001EC47A /* MBProgressHUD.m */; };
 /* End PBXBuildFile section */
 
@@ -174,7 +176,6 @@
 		9FA89EF216DDB0030042C505 /* ReviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewViewController.m; sourceTree = "<group>"; };
 		9FA89EF416DDCBD00042C505 /* ReviewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReviewManager.h; path = Store/ReviewManager.h; sourceTree = "<group>"; };
 		9FA89EF516DDCBD00042C505 /* ReviewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReviewManager.m; path = Store/ReviewManager.m; sourceTree = "<group>"; };
-		9FA89EF716DDE5D00042C505 /* a.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = a.html; sourceTree = "<group>"; };
 		9FA89EF916DDF77D0042C505 /* DetailCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailCommentViewController.h; sourceTree = "<group>"; };
 		9FA89EFA16DDF77D0042C505 /* DetailCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailCommentViewController.m; sourceTree = "<group>"; };
 		CD1ECD3316DE4763002687D6 /* comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment@2x.png"; sourceTree = "<group>"; };
@@ -227,6 +228,11 @@
 		CD90B8E316C5FEA000A4F218 /* DailyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyViewController.m; sourceTree = "<group>"; };
 		CD90B8E516C6337900A4F218 /* Query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Query.h; path = Store/Query.h; sourceTree = "<group>"; };
 		CD90B8E616C6337900A4F218 /* Query.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Query.m; path = Store/Query.m; sourceTree = "<group>"; };
+		CD92452E16E18C4A00277A17 /* ReviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReviewCell.h; path = Store/ReviewCell.h; sourceTree = "<group>"; };
+		CD92452F16E18C4A00277A17 /* ReviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReviewCell.m; path = Store/ReviewCell.m; sourceTree = "<group>"; };
+		CD92453216E18D3000277A17 /* ReviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewCell.xib; sourceTree = "<group>"; };
+		CD92453416E1FBD000277A17 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		CD92453516E1FBD000277A17 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		CD96CDDF16D070C4001EC47A /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		CD96CDE016D070C4001EC47A /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -350,7 +356,7 @@
 		9F9D77A116C35A8D001F9FD0 = {
 			isa = PBXGroup;
 			children = (
-				9FA89EF716DDE5D00042C505 /* a.html */,
+				CD92453116E18C5300277A17 /* cell */,
 				CD2AA0B516CA7E5600E6D8B3 /* CurrencyViewController.h */,
 				CD2AA0B616CA7E5600E6D8B3 /* CurrencyViewController.m */,
 				CD6CB2DA16C921D700A53219 /* CurrencyManager.h */,
@@ -482,6 +488,8 @@
 			children = (
 				CD96CDDF16D070C4001EC47A /* MBProgressHUD.h */,
 				CD96CDE016D070C4001EC47A /* MBProgressHUD.m */,
+				CD92453416E1FBD000277A17 /* GTMNSString+HTML.h */,
+				CD92453516E1FBD000277A17 /* GTMNSString+HTML.m */,
 				CD6CB2D716C8D75900A53219 /* NSString+url.h */,
 				CD6CB2D816C8D75A00A53219 /* NSString+url.m */,
 				CD6CB2B816C8926B00A53219 /* Util.h */,
@@ -507,6 +515,16 @@
 				CD6CB2C516C8AF3B00A53219 /* forward@2x.png */,
 			);
 			name = image;
+			sourceTree = "<group>";
+		};
+		CD92453116E18C5300277A17 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				CD92452E16E18C4A00277A17 /* ReviewCell.h */,
+				CD92452F16E18C4A00277A17 /* ReviewCell.m */,
+				CD92453216E18D3000277A17 /* ReviewCell.xib */,
+			);
+			name = cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -587,8 +605,8 @@
 				CD6CB2CF16C8CAFB00A53219 /* web@2x.png in Resources */,
 				CD6CB2D116C8CBC300A53219 /* sale@2x.png in Resources */,
 				CD6CB2D316C8CCE100A53219 /* computer@2x.png in Resources */,
-				9FA89EF816DDE5D00042C505 /* a.html in Resources */,
 				CD1ECD3416DE4763002687D6 /* comment@2x.png in Resources */,
+				CD92453316E18D3000277A17 /* ReviewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -649,6 +667,8 @@
 				9FA89EF316DDB0030042C505 /* ReviewViewController.m in Sources */,
 				9FA89EF616DDCBD00042C505 /* ReviewManager.m in Sources */,
 				9FA89EFB16DDF77D0042C505 /* DetailCommentViewController.m in Sources */,
+				CD92453016E18C4A00277A17 /* ReviewCell.m in Sources */,
+				CD92453616E1FBD000277A17 /* GTMNSString+HTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,7 @@
 #import "ReviewManager.h"
 #import "Comment.h"
 #import "Util.h"
+#import "NSString+url.h"
 @implementation ReviewManager
 + (ReviewManager *)sharedManager
 {
@@ -27,7 +28,9 @@
 -(void)htmlPage:(NSDictionary *)appInfo{
     //NSURL *sandboxStoreURL = [[NSURL alloc] initWithString: @"https://appdev.microsoft.com/StorePortals/en-US/Analytics/GetReportData/67f69611-1823-4e48-9974-c836c5b7a424/cdbc8787-b613-4141-9d76-98fcd3b727ec/1"];
     NSURL *sandboxStoreURL = [[NSURL alloc] initWithString: @"https://appdev.microsoft.com/StorePortals/en-US/Analytics/ChangeReviewPage"];
-    NSString *dat=[NSString stringWithFormat: @"currentPage=1&market=US&appID=%@",appInfo[kAppId]];
+    countrys=[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"country_names" ofType:@"plist"]];
+    for(NSString *key in [countrys allKeys]){
+    NSString *dat=[NSString stringWithFormat: @"currentPage=1&market=%@&appID=%@",key,appInfo[kAppId]];
     //    NSString *dat=@"[{\"Name\":\"MarketFilter\",\"SelectedMembers\":[\"US\"]}]";
     NSData *postData =[NSData dataWithBytes:[dat UTF8String] length:[dat length]];
     NSMutableURLRequest *connectionRequest = [NSMutableURLRequest requestWithURL:sandboxStoreURL];
@@ -36,40 +39,15 @@
     [connectionRequest setCachePolicy:NSURLRequestUseProtocolCachePolicy];
     
     [connectionRequest setHTTPBody:postData];
-    //    [connectionRequest setHTTPShouldHandleCookies:YES];
-    //    ///  NSArray *cookies=  [[NSHTTPCookieStorage sharedHTTPCookieStorage]cookiesForURL:[NSURL URLWithString:[self.urlField stringValue]]];
-    //    NSArray *cookies=  [[NSHTTPCookieStorage sharedHTTPCookieStorage]cookies];
-    //    NSDictionary * headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
-    //    //DLog(@"httpheader1:%@",[dict descriptionInStringsFileFormat]);
-    //    NSMutableDictionary *dict=[NSMutableDictionary dictionaryWithObjectsAndKeys:
-    //                               sandboxStoreURL.host,@"Host",
-    //                               @"Mozilla/5.0 (Macintosh; U; Intel Mac OS X ) AppleWebKit/534.53.10 (KHTML, like Gecko) Version/5.1 Safari/534.53.10",@"User-Agent",
-    //                               @"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8*",@"Accept",
-    //                               @"ja,en-us;q=0.7,en;q=0.3",@"Accept-Language",
-    //                               @"gzip, deflate",@"Accept-Encoding",
-    //                               // self.urlField.stringValue,@"Referer",
-    //                               @"keep-alive",@"Connection",
-    //                               //@"video/x-flv",@"Content-Type",
-    //                               nil];
-    //
-    //    [dict addEntriesFromDictionary:headers];
-    //    // we are just recycling the original request
-    //
-    //    [connectionRequest setAllHTTPHeaderFields:dict];
     
-    NSOperationQueue *queue=[NSOperationQueue mainQueue];
+//    NSOperationQueue *queue=[NSOperationQueue mainQueue];
         NSData *data=[NSURLConnection sendSynchronousRequest:connectionRequest returningResponse:nil error:nil];
     NSString *info=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-    [self analyzeData:info];
-//    [NSURLConnection sendAsynchronousRequest:connectionRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-//        if (data) {
-//            NSString *result = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-//            [self analyzeData:result];
-//        }else{
-//        }
-//    }];
-  //  return @"";
-}
+    [self analyzeData:info appName:appInfo[kAppName]];
+    }
+    
+    }
+
 
 -(NSArray *)allApplicationInfo{
     NSMutableArray *results=[NSMutableArray arrayWithCapacity:0];
@@ -83,20 +61,23 @@
         [results addObject:@{kAppName:appName[0],kAppId:appIds[0]}];
 
     }
-    return results;
-    
-//    <div class="appDetailFar">   <h3 class="clip"><span>
-    
+    return results;    
 }
 
--(void)analyzeData:(NSString *)html{
+-(void)analyzeData:(NSString *)html appName:(NSString *)appName{
     
     NSArray *titles=[self regexFetch:@"ReviewCommentTitle\">(.+)</div" wholeString:html];
     NSArray *ratings=[self regexFetch:@"alt=\"(.+)\"" wholeString:html];
     NSArray *dates=[self regexFetch:@"TimeClass\">(.+)</span" wholeString:html];
     NSArray *comments=[self regexFetch:@"ReviewComment\">(.+)</div" wholeString:html];
     NSArray *appId=[self regexFetch:@"ApplicationID\"  value=\"(.+)\"" wholeString:html];
+    NSArray *users=[self regexFetch:@"class=\"ReviewerHandle\" >(.+)</span>" wholeString:html];
+    NSArray *country=[self regexFetch:@"SelectedMarket\"  value=\"(.+)\"" wholeString:html];
+    
     int count=[titles count];
+    if (count==0) {
+        return;
+    }
     NSManagedObjectContext *localContext  = [NSManagedObjectContext MR_defaultContext];
 
     for(int i=0;i<count;i++){
@@ -104,14 +85,22 @@
         if(![self hasRecordWithDate:date]){
         Comment *newRecord= [Comment MR_createInContext:localContext];
         newRecord.date=date;
-        newRecord.title=titles[i];
+        newRecord.title=[titles[i] stringByDecodingHTMLEntities];
         newRecord.rating=[NSNumber numberWithFloat:  [ratings[i] floatValue]];
-        newRecord.review =comments[i];
+        newRecord.review =[comments[i] stringByDecodingHTMLEntities];
         newRecord.appId=appId[0];
+        newRecord.user=[users[i] stringByDecodingHTMLEntities];
+        newRecord.countryCode=country[0];
+            if ([countrys objectForKey:country[0]]) {
+                newRecord.country=[countrys objectForKey:country[0]];
+            }else{
+            newRecord.countryCode=[countrys objectForKey:country[0]];
+            }
+            newRecord.appName=[appName stringByDecodingHTMLEntities];
         }
     }
     
-    [localContext MR_save];
+    [localContext MR_saveInBackgroundCompletion:nil];
 
     
 }
@@ -146,7 +135,7 @@
 }
 
 -(NSArray *)reviewsOfApp:(NSString *)appid{
-  NSPredicate *filter=[NSPredicate predicateWithFormat:@"appId=%@",appid];
+  NSPredicate *filter=[NSPredicate predicateWithFormat:@"appName=%@",appid];
     NSArray *array=[Comment MR_findAllSortedBy:@"date"  ascending:NO withPredicate:filter inContext:[NSManagedObjectContext MR_defaultContext]];
 
     return array;

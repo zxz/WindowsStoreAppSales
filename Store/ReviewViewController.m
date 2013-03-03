@@ -9,6 +9,7 @@
 #import "ReviewViewController.h"
 #import "ReviewManager.h"
 #import "DetailCommentViewController.h"
+#import "Query.h"
 @interface ReviewViewController ()
 
 @end
@@ -30,7 +31,9 @@
     [super viewDidLoad];
     
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-    apps=[[ReviewManager sharedManager]allApplicationInfo];
+  apps= [Query allAppNameInReview];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,10 +42,18 @@
 
 }
 -(void)refresh:(id)sender{
-    for(id app in apps){
+    NSArray *apps_=[[ReviewManager sharedManager]allApplicationInfo];
+    
+    for(id app in apps_){
     [[ReviewManager sharedManager]fetchReviews:app];
     }
-    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Done" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    NSString *message;
+    if ([apps count]==0 ) {
+        message=@"No App Found";
+    }else{
+        message=@"Done";
+    }
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:message message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
 }
 #pragma mark - Table view data source
@@ -68,57 +79,19 @@
         cell.detailTextLabel.font=[UIFont fontWithName:@"Arial" size:13];
         cell.textLabel.numberOfLines=0;
     }
-    cell.textLabel.text= [apps[indexPath.row] objectForKey:kAppName];
+    cell.textLabel.text= apps[indexPath.row] ;
     // Configure the cell...
     
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DetailCommentViewController *detail=[[DetailCommentViewController alloc]initWithStyle:UITableViewStyleGrouped];
-    detail.appid= [apps[indexPath.row] objectForKey:kAppId];
+    detail.appid= apps[indexPath.row];
     [self.navigationController pushViewController:detail animated:YES];
 }
 

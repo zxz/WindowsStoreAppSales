@@ -13,4 +13,5 @@
 +(NSArray *)allAppNameInDate:(id)date;
 +(NSArray *)countryWithAppName:(NSString *)appName date:(id)date;
 +(NSArray *)arrayDictionaryToArray:(NSArray *)array WithKey:(NSString *)key;
++(NSArray *)allAppNameInReview;
 @end

@@ -538,6 +538,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     // Start executing the requested task
+//    [targetForExecution performSelectorOnMainThread:methodForExecution withObject:objectForExecution waitUntilDone:NO];
     [targetForExecution performSelector:methodForExecution withObject:objectForExecution];
 #pragma clang diagnostic pop
     // Task completed, update view in main thread (note: view operations should

@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 鄒 西中. All rights reserved.
 //
 @protocol RecordMangerDelegate <NSObject>
-
+@optional
 -(void)reloadData;
-
+-(void)recordProgress:(double) progress;
 @end
 #import <Foundation/Foundation.h>
 #import "AppDelegate.h"

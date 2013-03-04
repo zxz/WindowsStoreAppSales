@@ -50,19 +50,19 @@
     [self reloadData];
     
     //header view
-    headerView =  [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 96)];
-    
-    UITapGestureRecognizer *singleTapRecogniser = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureHandler:)];
-    [singleTapRecogniser setDelegate:self];
-    singleTapRecogniser.numberOfTouchesRequired = 1;
-    singleTapRecogniser.numberOfTapsRequired = 1;
-    UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(0, 20, 280, 55)];
-    label.font=[UIFont fontWithName:@"Chancery" size:11];
-    label.backgroundColor=[UIColor clearColor];
-    label.tag=11;
-    headerView.backgroundColor=[UIColor clearColor];
-    [headerView addSubview:label];
-    [headerView addGestureRecognizer:singleTapRecogniser];
+    //    headerView =  [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 96)];
+    //
+    //    UITapGestureRecognizer *singleTapRecogniser = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureHandler:)];
+    //    [singleTapRecogniser setDelegate:self];
+    //    singleTapRecogniser.numberOfTouchesRequired = 1;
+    //    singleTapRecogniser.numberOfTapsRequired = 1;
+    //    UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(0, 20, 280, 55)];
+    //    label.font=[UIFont fontWithName:@"Chancery" size:11];
+    //    label.backgroundColor=[UIColor clearColor];
+    //    label.tag=11;
+    //    headerView.backgroundColor=[UIColor clearColor];
+    //    [headerView addSubview:label];
+    //    [headerView addGestureRecognizer:singleTapRecogniser];
     
 }
 
@@ -97,6 +97,8 @@
         [self differentMonth:date];
     }
     [self reRangeAllDateArray];
+    
+    [RecordManager sharedInstance].delegate=self;
     //  allcount= [Query appCount:nil country:nil date:nil];
     [self.tableView reloadData];
     
@@ -131,31 +133,27 @@
 }
 
 -(void)refresh:(id)sender{
-    	HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-   	[self.navigationController.view addSubview:HUD];
-    		HUD.delegate = self;
-    	HUD.labelText = @"Loading";
-        [HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
-   // [self myTask];
     
-    //
-    //    UIAlertView *al=[[UIAlertView alloc]initWithTitle:@"Done" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    //    [al show];
-    //    [[RecordManager sharedInstance]refreshData];
-    
-    //	dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-    //		// Do a taks in the background
-    //		[self loadData];
-    //		// Hide the HUD in the main tread
-    //		dispatch_async(dispatch_get_main_queue(), ^{
-    //			[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-    //		});
-    //	});
+	HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:HUD];
+	
+	// Set determinate mode
+	HUD.mode = MBProgressHUDModeDeterminate;
+	
+	HUD.delegate = self;
+	HUD.labelText = @"Loading";
+	
+	// myProgressTask uses the HUD instance to update progress
+	[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
     
 }
+
+
 -(void)myTask{
     [[RecordManager sharedInstance]importRecords];
-    [self reloadData];
+}
+-(void)recordProgress:(double)progress{
+    HUD.progress = progress;
     
 }
 
@@ -176,19 +174,18 @@
     return [NSString stringWithFormat: @"%@ %@",[Util dateToString: months[section]], sale.description];
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView *view=headerView;
-    UIView *label=[headerView viewWithTag:11];
-    if([label respondsToSelector:@selector(setText:)]){
-        NSArray *oneMonth=[self monthDateArray:section];
-        
-        SaleCount *sale=[Query appCount:nil country:nil date:oneMonth];
-
-        [label performSelector:@selector(setText:) withObject:[NSString stringWithFormat: @"%@ %@",[Util dateToString: months[section]], sale.description]];
-    }
-    return view;
-}
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//    UIView *view=headerView;
+//    UIView *label=[headerView viewWithTag:11];
+//    if([label respondsToSelector:@selector(setText:)]){
+//        NSArray *oneMonth=[self monthDateArray:section];
+//        
+//        SaleCount *sale=[Query appCount:nil country:nil date:oneMonth];
+//        
+//        [label performSelector:@selector(setText:) withObject:[NSString stringWithFormat: @"%@ %@",[Util dateToString: months[section]], sale.description]];
+//    }
+//    return view;
+//}
 -(NSArray *)monthDateArray:(int) section{
     NSDate *datefrom=months[section];
     NSDate *dateTo;
@@ -276,5 +273,15 @@
     [self.navigationController pushViewController:detail animated:YES];
     
 }
+
+#pragma mark -
+#pragma mark MBProgressHUDDelegate methods
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+	// Remove HUD from screen when the HUD was hidded
+	[HUD removeFromSuperview];
+	HUD = nil;
+}
+
 
 @end

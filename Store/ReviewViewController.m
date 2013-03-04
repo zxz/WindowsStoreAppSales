@@ -7,7 +7,6 @@
 //
 
 #import "ReviewViewController.h"
-#import "ReviewManager.h"
 #import "DetailCommentViewController.h"
 #import "Query.h"
 @interface ReviewViewController ()
@@ -32,7 +31,7 @@
     
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
   apps= [Query allAppNameInReview];
-    
+    [ReviewManager sharedManager].delegate=self;
     
 }
 
@@ -42,19 +41,29 @@
 
 }
 -(void)refresh:(id)sender{
-    NSArray *apps_=[[ReviewManager sharedManager]allApplicationInfo];
     
-    for(id app in apps_){
-    [[ReviewManager sharedManager]fetchReviews:app];
-    }
-    NSString *message;
-    if ([apps count]==0 ) {
-        message=@"No App Found";
-    }else{
-        message=@"Done";
-    }
-    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:message message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    [alert show];
+	HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:HUD];
+	
+	// Set determinate mode
+	HUD.mode = MBProgressHUDModeDeterminate;
+	
+	HUD.delegate = self;
+	HUD.labelText = @"Loading";
+	
+	// myProgressTask uses the HUD instance to update progress
+	[HUD showWhileExecuting:@selector(myProgressTask) onTarget:self withObject:nil animated:YES];
+
+//    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:message message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//    [alert show];
+}
+-(void)myProgressTask{
+   [[ReviewManager sharedManager]allReviewsSync];
+ 
+}
+-(void)reviewProgress:(double)progress{
+    HUD.progress = progress;
+
 }
 #pragma mark - Table view data source
 
@@ -93,6 +102,14 @@
     DetailCommentViewController *detail=[[DetailCommentViewController alloc]initWithStyle:UITableViewStyleGrouped];
     detail.appid= apps[indexPath.row];
     [self.navigationController pushViewController:detail animated:YES];
+}
+#pragma mark -
+#pragma mark MBProgressHUDDelegate methods
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+	// Remove HUD from screen when the HUD was hidded
+	[HUD removeFromSuperview];
+	HUD = nil;
 }
 
 @end

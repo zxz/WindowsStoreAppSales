@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBProgressHUD.h"
+#import "ReviewManager.h"
 
-@interface ReviewViewController : UITableViewController
+@interface ReviewViewController : UITableViewController<MBProgressHUDDelegate,ReviewManagerDelegate>
 {
     NSArray *apps;
+    MBProgressHUD *HUD;
+
 }
 @end

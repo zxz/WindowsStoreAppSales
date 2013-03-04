@@ -21,15 +21,20 @@
     //    moc = [[NSManagedObjectContext alloc]init] ;
     //	[moc setPersistentStoreCoordinator:self.psc];
     //	[moc setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
-    [Record MR_truncateAllInContext:[NSManagedObjectContext MR_defaultContext]];
-    [[NSManagedObjectContext MR_defaultContext] MR_save];
+    [Record MR_truncateAllInContext:[NSManagedObjectContext MR_contextForCurrentThread]];
+    [[NSManagedObjectContext MR_contextForCurrentThread] MR_save];
     NSString * docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSLog(docPath);
 	NSFileManager *fm = [[NSFileManager alloc] init] ;
 	NSArray *fileNames = [fm contentsOfDirectoryAtPath:docPath error:NULL];
     //	NSString *filePath=[[NSBundle mainBundle]pathForResource:@"1" ofType:@"csv"];
-	
+	double currentIndex=0;
 	for (NSString *fileName in fileNames) {
+        currentIndex++;
+        
+        if ([self.delegate respondsToSelector:@selector(recordProgress:)]) {
+            [self.delegate recordProgress:currentIndex/fileNames.count ];
+        }
         NSLog(fileName);
         [self importFile:[ docPath stringByAppendingPathComponent:fileName] shouldRemoveOld:NO];
     }

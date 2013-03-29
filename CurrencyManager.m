@@ -285,7 +285,7 @@
 		/* Convert to euros, our universal common factor */
 		NSNumber *conversionRateEuroNumber = [exchangeRates objectForKey:[NSString stringWithFormat:@"\"%@ to EUR\"", sourceCurrency]];
 		if (!conversionRateEuroNumber) {
-			NSLog(@"Error: Currency code not found or exchange rates not downloaded yet");
+//			NSLog(@"Error: Currency code not found or exchange rates not downloaded yet");
 			return 0.0;
 		}	
 		

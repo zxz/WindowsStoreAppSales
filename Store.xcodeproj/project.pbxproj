@@ -39,9 +39,6 @@
 		9F9D77B816C35A8D001F9FD0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D77B616C35A8D001F9FD0 /* InfoPlist.strings */; };
 		9F9D77BA16C35A8D001F9FD0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D77B916C35A8D001F9FD0 /* main.m */; };
 		9F9D77BE16C35A8D001F9FD0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D77BD16C35A8D001F9FD0 /* AppDelegate.m */; };
-		9F9D77C016C35A8D001F9FD0 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D77BF16C35A8D001F9FD0 /* Default.png */; };
-		9F9D77C216C35A8D001F9FD0 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D77C116C35A8D001F9FD0 /* Default@2x.png */; };
-		9F9D77C416C35A8D001F9FD0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D77C316C35A8D001F9FD0 /* Default-568h@2x.png */; };
 		9F9D77E016C35F64001F9FD0 /* SalesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D77DF16C35F64001F9FD0 /* SalesViewController.m */; };
 		9F9D77E816C3671A001F9FD0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F9D77E716C3671A001F9FD0 /* CoreData.framework */; };
 		9F9D77EB16C38BE3001F9FD0 /* Sale.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D77E916C38BE3001F9FD0 /* Sale.xcdatamodeld */; };
@@ -91,6 +88,11 @@
 		CD92453016E18C4A00277A17 /* ReviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CD92452F16E18C4A00277A17 /* ReviewCell.m */; };
 		CD92453316E18D3000277A17 /* ReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD92453216E18D3000277A17 /* ReviewCell.xib */; };
 		CD92453616E1FBD000277A17 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = CD92453516E1FBD000277A17 /* GTMNSString+HTML.m */; };
+		CD96B62816E789F200480F95 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD96B62716E789F200480F95 /* Default@2x.png */; };
+		CD96B62A16E789F800480F95 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CD96B62916E789F800480F95 /* Default.png */; };
+		CD96B62C16E78A0C00480F95 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD96B62B16E78A0C00480F95 /* Default-568h@2x.png */; };
+		CD96B62E16E78A5400480F95 /* iconwin.png in Resources */ = {isa = PBXBuildFile; fileRef = CD96B62D16E78A5400480F95 /* iconwin.png */; };
+		CD96B63016E78A7B00480F95 /* iconwin1.png in Resources */ = {isa = PBXBuildFile; fileRef = CD96B62F16E78A7B00480F95 /* iconwin1.png */; };
 		CD96CDE116D070C4001EC47A /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CD96CDE016D070C4001EC47A /* MBProgressHUD.m */; };
 /* End PBXBuildFile section */
 
@@ -233,6 +235,11 @@
 		CD92453216E18D3000277A17 /* ReviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewCell.xib; sourceTree = "<group>"; };
 		CD92453416E1FBD000277A17 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
 		CD92453516E1FBD000277A17 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		CD96B62716E789F200480F95 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		CD96B62916E789F800480F95 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		CD96B62B16E78A0C00480F95 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		CD96B62D16E78A5400480F95 /* iconwin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconwin.png; sourceTree = "<group>"; };
+		CD96B62F16E78A7B00480F95 /* iconwin1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconwin1.png; sourceTree = "<group>"; };
 		CD96CDDF16D070C4001EC47A /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		CD96CDE016D070C4001EC47A /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -356,6 +363,11 @@
 		9F9D77A116C35A8D001F9FD0 = {
 			isa = PBXGroup;
 			children = (
+				CD96B62F16E78A7B00480F95 /* iconwin1.png */,
+				CD96B62D16E78A5400480F95 /* iconwin.png */,
+				CD96B62B16E78A0C00480F95 /* Default-568h@2x.png */,
+				CD96B62916E789F800480F95 /* Default.png */,
+				CD96B62716E789F200480F95 /* Default@2x.png */,
 				CD92453116E18C5300277A17 /* cell */,
 				CD2AA0B516CA7E5600E6D8B3 /* CurrencyViewController.h */,
 				CD2AA0B616CA7E5600E6D8B3 /* CurrencyViewController.m */,
@@ -579,9 +591,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F9D77B816C35A8D001F9FD0 /* InfoPlist.strings in Resources */,
-				9F9D77C016C35A8D001F9FD0 /* Default.png in Resources */,
-				9F9D77C216C35A8D001F9FD0 /* Default@2x.png in Resources */,
-				9F9D77C416C35A8D001F9FD0 /* Default-568h@2x.png in Resources */,
 				CD5230F716C7455C004ECCC8 /* country_names.plist in Resources */,
 				CD6CB29D16C7DB1900A53219 /* SDGroupCell.xib in Resources */,
 				CD6CB29E16C7DB1900A53219 /* SDNestedTableView.xib in Resources */,
@@ -607,6 +616,11 @@
 				CD6CB2D316C8CCE100A53219 /* computer@2x.png in Resources */,
 				CD1ECD3416DE4763002687D6 /* comment@2x.png in Resources */,
 				CD92453316E18D3000277A17 /* ReviewCell.xib in Resources */,
+				CD96B62816E789F200480F95 /* Default@2x.png in Resources */,
+				CD96B62A16E789F800480F95 /* Default.png in Resources */,
+				CD96B62C16E78A0C00480F95 /* Default-568h@2x.png in Resources */,
+				CD96B62E16E78A5400480F95 /* iconwin.png in Resources */,
+				CD96B63016E78A7B00480F95 /* iconwin1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

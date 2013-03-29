@@ -36,7 +36,7 @@
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
     
-    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(settingClick)];
+    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"Currency" style:UIBarButtonItemStylePlain target:self action:@selector(settingClick)]; 
     calendar =[[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
     dateToNumberDict=[NSMutableDictionary dictionaryWithCapacity:0];
     months=[NSMutableArray arrayWithCapacity:0];
@@ -74,7 +74,7 @@
 
 -(void)settingClick{
     CurrencyViewController *picker=[[CurrencyViewController alloc]initWithStyle:UITableViewStyleGrouped];
-    [self presentModalViewController:picker animated:YES];
+    [self presentViewController:picker animated:NO completion:nil];
 }
 
 -(void)reloadData
@@ -134,7 +134,14 @@
 
 -(void)refresh:(id)sender{
     
-	HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Sales" message:@"Do you want to load the csv file imported by  iTunes file sharing" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    alert.delegate=self;
+    [alert show];
+    
+    
+}
+-(void)doRefreshAction
+{	HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
 	
 	// Set determinate mode
@@ -145,9 +152,9 @@
 	
 	// myProgressTask uses the HUD instance to update progress
 	[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
+
     
 }
-
 
 -(void)myTask{
     [[RecordManager sharedInstance]importRecords];
@@ -282,6 +289,13 @@
 	[HUD removeFromSuperview];
 	HUD = nil;
 }
-
+#pragma mark-
+#pragma mark alter view
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+{
+    if (buttonIndex==1) {
+        [self doRefreshAction];
+    }
+}
 
 @end

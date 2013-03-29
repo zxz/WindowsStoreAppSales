@@ -42,6 +42,13 @@
 }
 -(void)refresh:(id)sender{
     
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Sales" message:@"Do you want to load the reivews of your apps form all markets? It takes a long time to load." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    alert.delegate=self;
+    [alert show];
+
+}
+-(void)doRefreshAction{
+    
 	HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
 	
@@ -54,8 +61,6 @@
 	// myProgressTask uses the HUD instance to update progress
 	[HUD showWhileExecuting:@selector(myProgressTask) onTarget:self withObject:nil animated:YES];
 
-//    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:message message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//    [alert show];
 }
 -(void)myProgressTask{
    [[ReviewManager sharedManager]allReviewsSync];
@@ -89,7 +94,6 @@
         cell.textLabel.numberOfLines=0;
     }
     cell.textLabel.text= apps[indexPath.row] ;
-    // Configure the cell...
     
     return cell;
 }
@@ -110,6 +114,14 @@
 	// Remove HUD from screen when the HUD was hidded
 	[HUD removeFromSuperview];
 	HUD = nil;
+}
+#pragma mark-
+#pragma mark alter view
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+{
+    if (buttonIndex==1) {
+        [self doRefreshAction];
+    }
 }
 
 @end
